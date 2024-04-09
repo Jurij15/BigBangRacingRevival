@@ -12,7 +12,7 @@ namespace BBRRevival.Server
     {
         public static HttpListener listener;
 
-        static string ip = "http://192.168.1.7:4451/";
+        private static string ip = "http://192.168.1.7:4451/";
 
         static void Main(string[] args)
         {
