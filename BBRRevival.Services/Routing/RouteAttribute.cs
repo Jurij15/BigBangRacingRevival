@@ -1,4 +1,4 @@
-﻿namespace BBRRevival.Services;
+﻿namespace BBRRevival.Services.Routing;
 
 public sealed class RouteAttribute : Attribute
 {

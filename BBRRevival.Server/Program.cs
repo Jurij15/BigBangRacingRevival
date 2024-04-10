@@ -10,7 +10,7 @@ namespace BBRRevival.Server
 {
     internal class Program
     {
-        public static HttpListener listener;
+        public static HttpListener? listener;
 
         private static string ip = "http://192.168.1.7:4451/";
 

@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using BBRRevival.Services.Helpers;
+using BBRRevival.Services.Routing;
 using Newtonsoft.Json;
 using Serilog;
 
@@ -10,20 +11,53 @@ public class PreloadController : Controller
     [Route("GET", "/v1/preload/checkVersion")]
     public async void CheckVersion()
     {
-        Log.Information("Received GetVersion request");
+        Log.Verbose("Received GetVersion request");
         byte[] data = null;
-        Dictionary<string, object> dict = new Dictionary<string, object>();
+        Dictionary<string, object> Version = new Dictionary<string, object>();
 
         //TODO: check client version here
 
-        dict.Add("version", "upToDate");
-        data = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(dict));
+        Version.Add("version", "upToDate");
+        data = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(Version));
 
         ResponseHelper.AddContentType(_response);
         ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request);
 
         await _response.OutputStream.WriteAsync(data);
         
+        _response.Close();
+    }
+
+    [Route("GET", "/v1/preload/checkFile")]
+    public async void CheckFile()
+    {
+        Log.Verbose("Received CheckFile request");
+        byte[] data = null;
+        Dictionary<string, object> File = new Dictionary<string, object>();
+
+        try
+        {
+            string name = _request.Url.Query.Split("&")[1].Remove(0, 5);
+            File.Add("PLAY_STATUS", "OK");
+            File.Add("name", name);
+            File.Add("type", "idkWhatToPutHere");
+            File.Add("path", $"{_config.IP}downloadFile?{name}"); //this is the adress to download the music bank, it can be anything
+            File.Add("version", "0"); //maybe?
+        }
+        catch (Exception ex)
+        {
+            Log.Error($"{ex}, query was probably null");
+            _response.Close();
+            return;
+        }
+
+        data = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(File));
+
+        ResponseHelper.AddContentType(_response);
+        ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request);
+
+        await _response.OutputStream.WriteAsync(data);
+
         _response.Close();
     }
 }
