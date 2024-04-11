@@ -15,8 +15,10 @@ class Program
                 .CreateLogger();
         
         APIConfig config = new APIConfig();
-        APIService api = new APIService(config, Log.Logger); 
-        
+        APIService api = new APIService(config, Log.Logger);
+
+        Log.Information("Press any key to stop the server!");
+
         Console.ReadKey();
     }
 }

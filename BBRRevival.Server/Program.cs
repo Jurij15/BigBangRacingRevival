@@ -213,7 +213,6 @@ namespace BBRRevival.Server
                     edict.Add("eventData", tdict);
                     edict.Add("uris", turis);
 
-                    PlayerData pdata = new PlayerData(); //just make some temporary player data
                     dict.Add("playerId", "123456789");
                     dict.Add("developer", true);
                     dict.Add("countryCode", "386");

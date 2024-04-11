@@ -1,5 +1,7 @@
 ﻿using BBRRevival.Services.Http;
+using BBRRevival.Services.Managers;
 using Serilog;
+using System.Data.Entity;
 using System.Reflection;
 
 namespace BBRRevival.Services.Routing;
@@ -21,11 +23,15 @@ public class Router
     private List<Route> _routes;
 
     private APIConfig _apiConfig;
-    
-    public Router(APIConfig config)
+    private SessionsManager sessionsManager;
+    private DatabaseManager databaseManager;
+
+    public Router(APIConfig config, SessionsManager sessionsmanager, DatabaseManager dbManager)
     {
         build();
         _apiConfig = config;
+        sessionsManager = sessionsmanager;
+        databaseManager = dbManager;
     }
 
     private void build()
@@ -57,7 +63,7 @@ public class Router
             if (item.Attribute.Method == args.request.HttpMethod && item.Attribute.Route == args.request.Url.AbsolutePath)
             {
                 Controller controller = (Controller)Activator.CreateInstance(item.Method.DeclaringType);
-                controller.Handle(item.Method, args.request, args.response, _apiConfig);
+                controller.Handle(item.Method, args.request, args.response, _apiConfig, sessionsManager, databaseManager);
                 break;
             }
         }

@@ -19,4 +19,10 @@ public class ResponseHelper
 
         return response;
     }
+
+    public static void PrepareRequest(byte[] data, string rawUrl, HttpListenerResponse response, HttpListenerRequest request)
+    {
+        AddContentType(response);
+        AddResponseHeaders(data, rawUrl, response, request);
+    }
 }
