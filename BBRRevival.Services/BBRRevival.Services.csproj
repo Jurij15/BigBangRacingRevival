@@ -7,10 +7,42 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Music\BossMusic.bank" />
+    <None Remove="Assets\Music\ChallengeMusic.bank" />
+    <None Remove="Assets\Music\FMOD_bank_list.txt" />
+    <None Remove="Assets\Music\Master Bank.bank" />
+    <None Remove="Assets\Music\Master Bank.strings.bank" />
+    <None Remove="Assets\Music\PuzzleMusic1.bank" />
+    <None Remove="Assets\Music\PuzzleMusic2.bank" />
+    <None Remove="Assets\Music\RacingMusic1.bank" />
     <None Remove="Assets\PlayerData" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Assets\Music\BossMusic.bank">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Music\ChallengeMusic.bank">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Music\FMOD_bank_list.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Music\Master Bank.bank">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Music\Master Bank.strings.bank">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Music\PuzzleMusic1.bank">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Music\PuzzleMusic2.bank">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Music\RacingMusic1.bank">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\PlayerData">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

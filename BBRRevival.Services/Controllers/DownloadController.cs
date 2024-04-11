@@ -12,18 +12,16 @@ namespace BBRRevival.Services.Controllers
 {
     public class DownloadController : Controller
     {
-        [Route("GET", "downloadFile")]
-        public async void CheckVersion()
+        [Route("GET", "/downloadFile")]
+        public async void DownloadFile()
         {
+            Log.Verbose("Received a DownloadFile request!");
             byte[] data = null;
-            Dictionary<string, object> Version = new Dictionary<string, object>();
 
-            //TODO: check client version here
-
-            data = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(""));
+            data = File.ReadAllBytes("Assets/Music/" + _request.Url.Query.Replace("?", "") + ".bank");
 
             ResponseHelper.AddContentType(_response);
-            ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request);
+            //ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request);
 
             await _response.OutputStream.WriteAsync(data, 0, data.Length);
 

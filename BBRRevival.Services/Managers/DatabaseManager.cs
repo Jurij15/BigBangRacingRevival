@@ -1,4 +1,5 @@
-﻿using BBRRevival.Services.Database;
+﻿using BBRRevival.Services.API;
+using BBRRevival.Services.Database;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,9 @@ namespace BBRRevival.Services.Managers
             Log.Verbose("Initialized DatabaseManager!");
         }
 
-
+        public void CreateTableClientConfig(ClientConfig config)
+        {
+            string command = "INSERT INTO ClientConfig (carRefreshMinutes, freshFreeInterval, keysAtStart, diamondsAtStart, coinsAtStart, boltsAtStart, fbConnectReward, dailyGemAmount, videoAdCount, videoAdCoolDown, freshFreeCount, freshFreeCoolDown, inRaceDiamondSpawnProbability, superLikeRefreshMinutes, offerCooldownMinutes, offerDurationMinutes, minimumTournamentNitros, tournamentYoutuberFollowNitros, creatorRank1¸ creatorRank2, creatorRank3, creatorRank4, creatorRank5, creatorRank6) VALUES ";
+        }
     }
 }

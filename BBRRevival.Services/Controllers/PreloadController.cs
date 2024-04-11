@@ -11,7 +11,6 @@ public class PreloadController : Controller
     [Route("GET", "/v1/preload/checkVersion")]
     public async void CheckVersion()
     {
-        Log.Verbose("Received GetVersion request");
         byte[] data = null;
         Dictionary<string, object> Version = new Dictionary<string, object>();
 
@@ -41,7 +40,9 @@ public class PreloadController : Controller
             File.Add("PLAY_STATUS", "OK");
             File.Add("name", name);
             File.Add("type", "idkWhatToPutHere");
-            File.Add("path", $"{_config.IP}downloadFile?{name}"); //this is the adress to download the music bank, it can be anything
+            Log.Warning("HARDCODED URL AT PreloadController.cs at line 44");
+            //File.Add("path", $"{_config.IP}downloadFile?{name}"); //this is the adress to download the music bank, it can be anything
+            File.Add("path", $"http://student.bitis.si/downloadFile?{name}"); //this is the adress to download the music bank, it can be anything
             File.Add("version", "0"); //maybe?
         }
         catch (Exception ex)
