@@ -83,12 +83,16 @@ namespace BBRRevival.Services.Controllers
                     };
 
                 Dictionary<string, object> adpdict = new Dictionary<string, object>();
-                adpdict.Add("planet", "Adventure");
+                adpdict.Add("planet", "RacingMotorcycle");
                 adpdict.Add("version", 2);
 
                 Dictionary<string, object> tpdict = new Dictionary<string, object>(); //add in another one that is not adventure, maybe it will hit the callback
                 tpdict.Add("planet", "Tutorial");
                 tpdict.Add("version", 2);
+
+                Dictionary<string, object> ofcarpdict = new Dictionary<string, object>(); //add in another one that is not adventure, maybe it will hit the callback
+                ofcarpdict.Add("planet", "AdventureOffroadCar");
+                ofcarpdict.Add("version", 2);
 
                 //planet paths, probably neccesary
                 List<object> nodes = new List<object>();
@@ -102,7 +106,7 @@ namespace BBRRevival.Services.Controllers
 
                 List<object> paths = new List<object>();
                 Dictionary<string, object> path = new Dictionary<string, object>();
-                path.Add("name", "testpath");
+                path.Add("name", "RacingMotorcycle");
                 path.Add("currentNode", "0");
                 path.Add("type", "0");
                 path.Add("nodes", nodes);
@@ -146,7 +150,7 @@ namespace BBRRevival.Services.Controllers
                 dict.Add("AcceptNotifications", true);
                 dict.Add("nameChangesDone", 0);
 
-                dict.Add("planetVersions", new List<object> { adpdict, tpdict });
+                dict.Add("planetVersions", new List<object> { adpdict, tpdict, ofcarpdict });
 
                 dict.Add("paths", paths);
 
@@ -165,6 +169,30 @@ namespace BBRRevival.Services.Controllers
 
             //send the request
             ResponseHelper.PrepareRequest(data, RawUrl, _response, _request);
+            await _response.OutputStream.WriteAsync(data, 0, data.Length);
+
+            _response.Close();
+        }
+
+        [Route("POST", "/v2/player/data/change")]
+        public async void SetPlayerFriendData()
+        {
+            byte[] data = null;
+
+            Dictionary<string, object> path = new Dictionary<string, object>();
+            path.Add("lastPathSync", "what");
+
+            data = Encoding.Default.GetBytes(JsonConvert.SerializeObject(path));
+
+            Console.WriteLine("request headers");
+            foreach (var item in _request.Headers)
+            {
+                Console.WriteLine(item);
+            }
+
+            ResponseHelper.AddContentType(_response);
+            ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request);
+
             await _response.OutputStream.WriteAsync(data, 0, data.Length);
 
             _response.Close();

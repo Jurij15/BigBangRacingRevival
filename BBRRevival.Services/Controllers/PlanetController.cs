@@ -19,13 +19,16 @@ namespace BBRRevival.Services.Controllers
             byte[] data = null;
 
             Dictionary<string, object> datas2 = new Dictionary<string, object>();
-            datas2.Add("nodeType", 0);//undefined
+            datas2.Add("nodeType", "9");//undefined
+            datas2.Add("itemName", "9");//undefined
+            datas2.Add("itemIcon", "9");//undefined
+            datas2.Add("itemDescription", "9");//undefined
 
             Dictionary<string, object> datas = new Dictionary<string, object>();
             datas.Add("id", 0);//undefined
-            datas.Add("name", "Tutorial");//undefined
-            datas.Add("x", 0);//undefined
-            datas.Add("y", 1);//undefined
+            datas.Add("name", "RacingMotorcycle");//undefined
+            datas.Add("x", 24);//undefined
+            datas.Add("y", 24);//undefined
             datas.Add("data", datas2);
 
             Dictionary<string, object> datadict = new Dictionary<string, object>();
@@ -41,7 +44,7 @@ namespace BBRRevival.Services.Controllers
             data = bytes;
 
             ResponseHelper.AddContentType(_response);
-            ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request);
+            ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request, false);
 
             await _response.OutputStream.WriteAsync(data, 0, data.Length);
 

@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Numerics;
 using System.Text;
 
 namespace BBRRevival.Services.Helpers;
@@ -12,10 +13,14 @@ public class ResponseHelper
     }
 
     public static HttpListenerResponse AddResponseHeaders(byte[] data, string rawUrl, HttpListenerResponse response,
-        HttpListenerRequest request)
+        HttpListenerRequest request, bool sendHash = true)
     {
         response.AddHeader("PLAY_STATUS", "OK"); //TODO: implement actuall status header
-        response.AddHeader("PLAY_HASH", Encoding.UTF8.GetString(data)+request.RawUrl + "bfid3Z53SFib325PJGFasae"); //server encryption key
+        response.AddHeader("PLAY_HASH", "");
+        if (sendHash)
+        {
+            response.AppendHeader("PLAY_HASH", Encoding.UTF8.GetString(data) + request.RawUrl + "bfid3Z53SFib325PJGFasae"); //server encryption key
+        }
 
         return response;
     }
