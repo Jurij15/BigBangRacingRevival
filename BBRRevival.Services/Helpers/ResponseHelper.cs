@@ -15,7 +15,7 @@ public class ResponseHelper
         HttpListenerRequest request)
     {
         response.AddHeader("PLAY_STATUS", "OK"); //TODO: implement actuall status header
-        response.AddHeader("PLAY_HASH", Encoding.Default.GetString(data)+request.RawUrl + "bfid3Z53SFib325PJGFasae"); //server encryption key
+        response.AddHeader("PLAY_HASH", Encoding.UTF8.GetString(data)+request.RawUrl + "bfid3Z53SFib325PJGFasae"); //server encryption key
 
         return response;
     }

@@ -82,10 +82,32 @@ namespace BBRRevival.Services.Controllers
                         new Dictionary<string, object> { { "uri", "http://example.com/3" } }
                     };
 
-                Dictionary<string, object> pdict = new Dictionary<string, object>();
-                pdict.Add("planet", "Adventure");
-                pdict.Add("version", 2);
+                Dictionary<string, object> adpdict = new Dictionary<string, object>();
+                adpdict.Add("planet", "Adventure");
+                adpdict.Add("version", 2);
 
+                Dictionary<string, object> tpdict = new Dictionary<string, object>(); //add in another one that is not adventure, maybe it will hit the callback
+                tpdict.Add("planet", "Tutorial");
+                tpdict.Add("version", 2);
+
+                //planet paths, probably neccesary
+                List<object> nodes = new List<object>();
+                Dictionary<string, object> nodesdict = new Dictionary<string, object>();
+
+                nodesdict.Add("id", "1234");
+                nodesdict.Add("levelNumber", "12345");
+                nodesdict.Add("score", "123456");
+
+                nodes.Add(nodesdict);
+
+                List<object> paths = new List<object>();
+                Dictionary<string, object> path = new Dictionary<string, object>();
+                path.Add("name", "testpath");
+                path.Add("currentNode", "0");
+                path.Add("type", "0");
+                path.Add("nodes", nodes);
+
+                paths.Add(path);
                 //add tournament things, looks like it is neccesary to do this idk why
                 Dictionary<string, object> edict = new Dictionary<string, object>();
                 edict.Add("eventName", "TestEvemt");
@@ -124,7 +146,9 @@ namespace BBRRevival.Services.Controllers
                 dict.Add("AcceptNotifications", true);
                 dict.Add("nameChangesDone", 0);
 
-                dict.Add("planetVersions", new List<object> { pdict });
+                dict.Add("planetVersions", new List<object> { adpdict, tpdict });
+
+                dict.Add("paths", paths);
 
                 data = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(dict));
             }
