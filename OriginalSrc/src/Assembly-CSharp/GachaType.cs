@@ -1,0 +1,24 @@
+﻿using System;
+
+// Token: 0x020000A9 RID: 169
+public enum GachaType
+{
+	// Token: 0x04000489 RID: 1161
+	WOOD,
+	// Token: 0x0400048A RID: 1162
+	COMMON,
+	// Token: 0x0400048B RID: 1163
+	BRONZE,
+	// Token: 0x0400048C RID: 1164
+	SILVER,
+	// Token: 0x0400048D RID: 1165
+	GOLD,
+	// Token: 0x0400048E RID: 1166
+	RARE,
+	// Token: 0x0400048F RID: 1167
+	EPIC,
+	// Token: 0x04000490 RID: 1168
+	SUPER,
+	// Token: 0x04000491 RID: 1169
+	BOSS
+}

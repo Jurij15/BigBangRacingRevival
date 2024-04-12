@@ -1,0 +1,156 @@
+﻿using System;
+
+namespace GooglePlayGames.Native.Cwrapper
+{
+	// Token: 0x02000635 RID: 1589
+	internal static class CommonErrorStatus
+	{
+		// Token: 0x02000636 RID: 1590
+		internal enum ResponseStatus
+		{
+			// Token: 0x04003181 RID: 12673
+			VALID = 1,
+			// Token: 0x04003182 RID: 12674
+			VALID_BUT_STALE,
+			// Token: 0x04003183 RID: 12675
+			ERROR_LICENSE_CHECK_FAILED = -1,
+			// Token: 0x04003184 RID: 12676
+			ERROR_INTERNAL = -2,
+			// Token: 0x04003185 RID: 12677
+			ERROR_NOT_AUTHORIZED = -3,
+			// Token: 0x04003186 RID: 12678
+			ERROR_VERSION_UPDATE_REQUIRED = -4,
+			// Token: 0x04003187 RID: 12679
+			ERROR_TIMEOUT = -5
+		}
+
+		// Token: 0x02000637 RID: 1591
+		internal enum FlushStatus
+		{
+			// Token: 0x04003189 RID: 12681
+			FLUSHED = 4,
+			// Token: 0x0400318A RID: 12682
+			ERROR_INTERNAL = -2,
+			// Token: 0x0400318B RID: 12683
+			ERROR_NOT_AUTHORIZED = -3,
+			// Token: 0x0400318C RID: 12684
+			ERROR_VERSION_UPDATE_REQUIRED = -4,
+			// Token: 0x0400318D RID: 12685
+			ERROR_TIMEOUT = -5
+		}
+
+		// Token: 0x02000638 RID: 1592
+		internal enum AuthStatus
+		{
+			// Token: 0x0400318F RID: 12687
+			VALID = 1,
+			// Token: 0x04003190 RID: 12688
+			ERROR_INTERNAL = -2,
+			// Token: 0x04003191 RID: 12689
+			ERROR_NOT_AUTHORIZED = -3,
+			// Token: 0x04003192 RID: 12690
+			ERROR_VERSION_UPDATE_REQUIRED = -4,
+			// Token: 0x04003193 RID: 12691
+			ERROR_TIMEOUT = -5
+		}
+
+		// Token: 0x02000639 RID: 1593
+		internal enum UIStatus
+		{
+			// Token: 0x04003195 RID: 12693
+			VALID = 1,
+			// Token: 0x04003196 RID: 12694
+			ERROR_INTERNAL = -2,
+			// Token: 0x04003197 RID: 12695
+			ERROR_NOT_AUTHORIZED = -3,
+			// Token: 0x04003198 RID: 12696
+			ERROR_VERSION_UPDATE_REQUIRED = -4,
+			// Token: 0x04003199 RID: 12697
+			ERROR_TIMEOUT = -5,
+			// Token: 0x0400319A RID: 12698
+			ERROR_CANCELED = -6,
+			// Token: 0x0400319B RID: 12699
+			ERROR_UI_BUSY = -12,
+			// Token: 0x0400319C RID: 12700
+			ERROR_LEFT_ROOM = -18
+		}
+
+		// Token: 0x0200063A RID: 1594
+		internal enum MultiplayerStatus
+		{
+			// Token: 0x0400319E RID: 12702
+			VALID = 1,
+			// Token: 0x0400319F RID: 12703
+			VALID_BUT_STALE,
+			// Token: 0x040031A0 RID: 12704
+			ERROR_INTERNAL = -2,
+			// Token: 0x040031A1 RID: 12705
+			ERROR_NOT_AUTHORIZED = -3,
+			// Token: 0x040031A2 RID: 12706
+			ERROR_VERSION_UPDATE_REQUIRED = -4,
+			// Token: 0x040031A3 RID: 12707
+			ERROR_TIMEOUT = -5,
+			// Token: 0x040031A4 RID: 12708
+			ERROR_MATCH_ALREADY_REMATCHED = -7,
+			// Token: 0x040031A5 RID: 12709
+			ERROR_INACTIVE_MATCH = -8,
+			// Token: 0x040031A6 RID: 12710
+			ERROR_INVALID_RESULTS = -9,
+			// Token: 0x040031A7 RID: 12711
+			ERROR_INVALID_MATCH = -10,
+			// Token: 0x040031A8 RID: 12712
+			ERROR_MATCH_OUT_OF_DATE = -11,
+			// Token: 0x040031A9 RID: 12713
+			ERROR_REAL_TIME_ROOM_NOT_JOINED = -17
+		}
+
+		// Token: 0x0200063B RID: 1595
+		internal enum QuestAcceptStatus
+		{
+			// Token: 0x040031AB RID: 12715
+			VALID = 1,
+			// Token: 0x040031AC RID: 12716
+			ERROR_INTERNAL = -2,
+			// Token: 0x040031AD RID: 12717
+			ERROR_NOT_AUTHORIZED = -3,
+			// Token: 0x040031AE RID: 12718
+			ERROR_TIMEOUT = -5,
+			// Token: 0x040031AF RID: 12719
+			ERROR_QUEST_NO_LONGER_AVAILABLE = -13,
+			// Token: 0x040031B0 RID: 12720
+			ERROR_QUEST_NOT_STARTED = -14
+		}
+
+		// Token: 0x0200063C RID: 1596
+		internal enum QuestClaimMilestoneStatus
+		{
+			// Token: 0x040031B2 RID: 12722
+			VALID = 1,
+			// Token: 0x040031B3 RID: 12723
+			ERROR_INTERNAL = -2,
+			// Token: 0x040031B4 RID: 12724
+			ERROR_NOT_AUTHORIZED = -3,
+			// Token: 0x040031B5 RID: 12725
+			ERROR_TIMEOUT = -5,
+			// Token: 0x040031B6 RID: 12726
+			ERROR_MILESTONE_ALREADY_CLAIMED = -15,
+			// Token: 0x040031B7 RID: 12727
+			ERROR_MILESTONE_CLAIM_FAILED = -16
+		}
+
+		// Token: 0x0200063D RID: 1597
+		internal enum SnapshotOpenStatus
+		{
+			// Token: 0x040031B9 RID: 12729
+			VALID = 1,
+			// Token: 0x040031BA RID: 12730
+			VALID_WITH_CONFLICT = 3,
+			// Token: 0x040031BB RID: 12731
+			ERROR_INTERNAL = -2,
+			// Token: 0x040031BC RID: 12732
+			ERROR_NOT_AUTHORIZED = -3,
+			// Token: 0x040031BD RID: 12733
+			ERROR_TIMEOUT = -5
+		}
+	}
+}

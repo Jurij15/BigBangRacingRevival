@@ -1,0 +1,22 @@
+﻿using System;
+
+// Token: 0x02000032 RID: 50
+public enum CoinStreakStyle
+{
+	// Token: 0x0400011D RID: 285
+	BASIC,
+	// Token: 0x0400011E RID: 286
+	COPPER_AND_GOLD,
+	// Token: 0x0400011F RID: 287
+	ALL_GOLD,
+	// Token: 0x04000120 RID: 288
+	GOLD_HOARDER,
+	// Token: 0x04000121 RID: 289
+	GOLD_MANIAC,
+	// Token: 0x04000122 RID: 290
+	ROYAL,
+	// Token: 0x04000123 RID: 291
+	ALL_DIAMONDS,
+	// Token: 0x04000124 RID: 292
+	ALL_SHARDS
+}
