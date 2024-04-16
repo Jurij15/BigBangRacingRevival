@@ -24,10 +24,7 @@ namespace BBRRevival.Services.Controllers
             data = Encoding.Default.GetBytes(JsonConvert.SerializeObject(dict));
 
             Log.Verbose("New Token?");
-            foreach (var item in _request.Headers)
-            {
-                Log.Verbose(item.ToString());
-            }
+            Console.WriteLine(RequestBodyAsync().Result);
 
             ResponseHelper.AddContentType(_response);
             ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request);
