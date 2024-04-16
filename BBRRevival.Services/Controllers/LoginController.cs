@@ -83,16 +83,20 @@ namespace BBRRevival.Services.Controllers
                     };
 
                 Dictionary<string, object> adpdict = new Dictionary<string, object>();
-                adpdict.Add("planet", "RacingMotorcycle");
+                adpdict.Add("planet", "AdventureMotorcycle");
                 adpdict.Add("version", 2);
 
                 Dictionary<string, object> tpdict = new Dictionary<string, object>(); //add in another one that is not adventure, maybe it will hit the callback
-                tpdict.Add("planet", "Tutorial");
+                tpdict.Add("planet", "RacingOffroadCar");
                 tpdict.Add("version", 2);
 
                 Dictionary<string, object> ofcarpdict = new Dictionary<string, object>(); //add in another one that is not adventure, maybe it will hit the callback
                 ofcarpdict.Add("planet", "AdventureOffroadCar");
                 ofcarpdict.Add("version", 2);
+
+                Dictionary<string, object> rmcarpdict = new Dictionary<string, object>(); //add in another one that is not adventure, maybe it will hit the callback
+                rmcarpdict.Add("planet", "RacingMotorcycle");
+                rmcarpdict.Add("version", 2);
 
                 //planet paths, probably neccesary
                 List<object> nodes = new List<object>();
@@ -153,8 +157,8 @@ namespace BBRRevival.Services.Controllers
                 dict.Add("nameChangesDone", 0);
                 dict.Add("level", 100);
 
-                dict.Add("mcRank", 100);
-                dict.Add("carRank", 100);
+                dict.Add("mcRank", 4000);
+                dict.Add("carRank", 4000);
 
                 dict.Add("coins", 1000000);
                 dict.Add("diamonds", 1000000);
@@ -166,7 +170,7 @@ namespace BBRRevival.Services.Controllers
                 dict.Add("totalCoinsEarned", 100000);
 
 
-                dict.Add("planetVersions", new List<object> { adpdict, tpdict, ofcarpdict });
+                dict.Add("planetVersions", new List<object> { adpdict, tpdict, ofcarpdict, rmcarpdict });
 
                 dict.Add("paths", paths);
 
