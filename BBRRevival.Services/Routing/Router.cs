@@ -58,14 +58,21 @@ public class Router
 
     public void HandleRequest(HttpRequestReceivedEventArgs args)
     {
+        bool requestHandled = false;
         foreach (var item in _routes)
         {
             if (item.Attribute.Method == args.request.HttpMethod && item.Attribute.Route == args.request.Url.AbsolutePath)
             {
                 Controller controller = (Controller)Activator.CreateInstance(item.Method.DeclaringType);
                 controller.Handle(item.Method, args.request, args.response, _apiConfig, sessionsManager, databaseManager);
+                requestHandled = true;
                 break;
             }
+        }
+
+        if (!requestHandled)
+        {
+            Log.Warning($"Request to {args.request.Url.AbsolutePath} from {args.request.RemoteEndPoint.ToString()} was not handled!");
         }
     }
 }

@@ -14,20 +14,20 @@ namespace BBRRevival.Services.Controllers
     public class LoginController : Controller
     {
         [Route("POST", "/v4/player/login")]
-        public async void CheckVersion()
+        public async void PlayerLogin()
         {
             Log.Information("Received Login Request");
             byte[] data = null;
 
             string Query = _request.Url.Query;
             string param = Query.Split("&")[0];
-            int value = Convert.ToInt32(param.Split("=")[1]);
+            string value = param.Split("=")[1];
 
             string sessionId = sessionsManager.AddNewSessionId();
 
             Dictionary<string, object> dict = new Dictionary<string, object>();
 
-            if (value == 0)
+            if (true) //check value == "0", setting it to true for now
             {
                 Log.Verbose("New User Creation");
 
