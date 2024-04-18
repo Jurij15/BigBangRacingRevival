@@ -72,7 +72,7 @@ public class Router
 
         if (!requestHandled)
         {
-            Log.Warning($"Request to {args.request.Url.AbsolutePath} from {args.request.RemoteEndPoint.ToString()} was not handled!");
+            Log.Warning($"Request to {args.request.Url.AbsolutePath} from {args.request.RemoteEndPoint.ToString()} with method {args.request.HttpMethod} was not handled!");
         }
     }
 }

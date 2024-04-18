@@ -31,5 +31,22 @@ namespace BBRRevival.Services.Controllers
 
             _response.Close();
         }
+
+        [Route("GET", "/v1/player/get/social")]
+        public async void GetPlayerSocialInfo()
+        {
+            byte[] data = null;
+
+            Dictionary<string, object> friends = new Dictionary<string, object>();
+
+            data = Encoding.Default.GetBytes(JsonConvert.SerializeObject(friends));
+
+            ResponseHelper.AddContentType(_response);
+            ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request, true);
+
+            await _response.OutputStream.WriteAsync(data, 0, data.Length);
+
+            _response.Close();
+        }
     }
 }
