@@ -19,3 +19,6 @@ Also, please ignore the Server project (it was only meant for testing, before i 
 - file -> save module -> ok
 - recompile the apk
 - sign with apktool on android
+
+# Contact
+@JurijG on Discord
