@@ -22,3 +22,4 @@ Also, please ignore the Server project (it was only meant for testing, before i 
 
 # Contact
 @JurijG on Discord
+jurij.grom07@gmail.com
