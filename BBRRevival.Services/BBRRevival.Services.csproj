@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\InitialData\AdventureMotorcycleLocalInitialData.txt" />
+    <None Remove="Assets\InitialData\AdventureOffroadCarLocalInitialData.txt" />
+    <None Remove="Assets\InitialData\MetadataLocalInitialData.txt" />
+    <None Remove="Assets\InitialData\RacingMotorcycleLocalInitialData.txt" />
+    <None Remove="Assets\InitialData\RacingOffroadCarLocalInitialData.txt" />
     <None Remove="Assets\Music\BossMusic.bank" />
     <None Remove="Assets\Music\ChallengeMusic.bank" />
     <None Remove="Assets\Music\FMOD_bank_list.txt" />
@@ -19,6 +24,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Assets\InitialData\MetadataLocalInitialData.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\InitialData\AdventureMotorcycleLocalInitialData.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\InitialData\AdventureOffroadCarLocalInitialData.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\InitialData\RacingMotorcycleLocalInitialData.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\InitialData\RacingOffroadCarLocalInitialData.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Music\BossMusic.bank">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -50,12 +73,14 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Serilog" Version="3.1.1" />
+    <PackageReference Include="Serilog" Version="4.0.0" />
     <PackageReference Include="SharpZipLib" Version="1.4.2" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
-    <PackageReference Include="System.Drawing.Common" Version="8.0.4" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.7" />
   </ItemGroup>
 
 </Project>

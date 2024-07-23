@@ -105,4 +105,29 @@ public static class FilePacker
 	{
 		return Encoding.UTF8.GetString(bytes);
 	}
+
+    public static byte[][] UncombineByteArrays(byte[] combinedArray, string FileSizes)
+    {
+        if (FileSizes is null)
+        {
+            throw new ArgumentException("FileSizes is null");
+        }
+
+        string fileSizeString = FileSizes;
+        string[] fileSizeStrings = fileSizeString.Split(',');
+        int[] fileSizes = Array.ConvertAll(fileSizeStrings, int.Parse);
+
+        byte[][] originalArrays = new byte[fileSizes.Length][];
+        int offset = 0;
+
+        for (int i = 0; i < fileSizes.Length; i++)
+        {
+            int length = fileSizes[i];
+            originalArrays[i] = new byte[length];
+            Buffer.BlockCopy(combinedArray, offset, originalArrays[i], 0, length);
+            offset += length;
+        }
+
+        return originalArrays;
+    }
 }

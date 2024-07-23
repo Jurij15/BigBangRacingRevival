@@ -4,5 +4,5 @@ namespace BBRRevival.Services;
 
 public class APIConfig
 {
-    public string IP = "http://10.3.20.69:4451/";
+    public string IP = "http://192.168.1.7:4451/";
 }

@@ -1,10 +1,16 @@
-﻿using BBRRevival.Services.Helpers;
+﻿using BBRRevival.Services.API;
+using BBRRevival.Services.API.Models;
+using BBRRevival.Services.Helpers;
+using BBRRevival.Services.Internal.Services.Interfaces;
 using BBRRevival.Services.Routing;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -53,6 +59,8 @@ namespace BBRRevival.Services.Controllers
         [Route("POST", "/v2/minigame/save")]
         public async void SaveMinigame()
         {
+            IMinigameService minigameService = App.Services.GetService<IMinigameService>();
+
             byte[] data = null;
 
             Dictionary<string, object> map = new Dictionary<string, object>();
@@ -64,12 +72,12 @@ namespace BBRRevival.Services.Controllers
 
             data = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(map));
 
-            Console.WriteLine(this.RequestBodyAsync().Result);
-            string level = this.RequestBodyAsync().Result;
-            using (StreamWriter sw = File.CreateText("testSave" + new Random().Next().ToString()))
-            {
-                sw.Write(level);
-            };
+            //Console.WriteLine(this.RequestBodyAsync().Result);
+
+            var level = this.RequestBodyBytesAsync().Result;
+            var fileSizes = _request.Headers["FILE_SIZES"].ToString();
+
+            await minigameService.SaveMinigame(level, fileSizes);
 
             ResponseHelper.AddContentType(_response);
             ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request);
@@ -82,18 +90,21 @@ namespace BBRRevival.Services.Controllers
         [Route("GET", "/v1/minigame/meta/find")]
         public async void FindMinigame()
         {
+            IMinigameService minigameService = App.Services.GetService<IMinigameService>();
             byte[] data = null;
 
-            Dictionary<string, object> map = new Dictionary<string, object>();
-            map.Add("id", "1234");
-            map.Add("name", "testname");
+            var levelId = _request.QueryString["id"];
+            var meta = await minigameService.GetMinigameMetadata(levelId);
 
-            List<object> maps = new List<object>();
-            maps.Add(map);
+            var json = JsonConvert.SerializeObject(meta);
+            Console.WriteLine(json);
 
-            data = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(map));
+            //TODO: MOVE THIS WEIRD CONVERSION TO ANOTHER FILE
+            Dictionary<string ,object> dict = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
 
-            Console.WriteLine(this.RequestBodyAsync().Result);
+            Console.WriteLine(JsonConvert.SerializeObject(dict));
+
+            data = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(dict));
 
             ResponseHelper.AddContentType(_response);
             ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request);
@@ -108,9 +119,11 @@ namespace BBRRevival.Services.Controllers
         {
             byte[] data = null;
 
-            data = File.ReadAllBytes("MyLevel");
+            var levelId = _request.QueryString["id"];
 
-            Console.WriteLine(this.RequestBodyAsync().Result);
+            Log.Verbose(levelId);
+
+            data = File.ReadAllBytes("levelTest.txt");
 
             ResponseHelper.AddContentType(_response);
             ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request, false);

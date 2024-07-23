@@ -32,6 +32,9 @@ namespace BBRRevival.Services
 
         public void Initialize()
         {
+            App.PrepareInternalAppServices();
+            CommonPaths.CreateRootDirectories();
+
             sessionsManager = new SessionsManager();
             dbManager = new DatabaseManager();
 

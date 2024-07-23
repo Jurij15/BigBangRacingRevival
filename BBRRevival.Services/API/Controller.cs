@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Text;
 
-namespace BBRRevival.Services;
+namespace BBRRevival.Services.API;
 
 public class Controller
 {
@@ -26,6 +26,15 @@ public class Controller
         string body = await reader.ReadToEndAsync();
         Log.Debug("Done parsing request body");
         return body;
+    }
+
+    protected async Task<byte[]> RequestBodyBytesAsync()
+    {
+        Log.Debug("Parsing request body");
+        using var memoryStream = new MemoryStream();
+        await _request.InputStream.CopyToAsync(memoryStream);
+        Log.Debug("Done parsing request body");
+        return memoryStream.ToArray();
     }
 
     public void Handle(MethodInfo method, HttpListenerRequest request, HttpListenerResponse response, APIConfig config, SessionsManager sessionsmanager,

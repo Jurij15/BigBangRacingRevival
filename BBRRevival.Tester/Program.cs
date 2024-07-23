@@ -9,6 +9,8 @@ class Program
 {
     static void Main(string[] args)
     {
+       var unzippedbytes = FilePacker.UnZipBytes(File.ReadAllBytes("levelTest.txt"));
+
         Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Verbose()
                 .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Verbose)

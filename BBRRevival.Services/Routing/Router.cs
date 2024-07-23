@@ -1,4 +1,5 @@
-﻿using BBRRevival.Services.Http;
+﻿using BBRRevival.Services.API;
+using BBRRevival.Services.Http;
 using BBRRevival.Services.Managers;
 using Serilog;
 using System.Data.Entity;

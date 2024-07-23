@@ -1,4 +1,5 @@
-﻿using BBRRevival.Services.Helpers;
+﻿using BBRRevival.Services.API;
+using BBRRevival.Services.Helpers;
 using BBRRevival.Services.Routing;
 using Newtonsoft.Json;
 using Serilog;
@@ -98,6 +99,10 @@ namespace BBRRevival.Services.Controllers
                 rmcarpdict.Add("planet", "RacingMotorcycle");
                 rmcarpdict.Add("version", 2);
 
+                Dictionary<string, object> metadatadict = new Dictionary<string, object>(); //add in another one that is not adventure, maybe it will hit the callback
+                metadatadict.Add("planet", "Metadata");
+                metadatadict.Add("version", 2);
+
                 //planet paths, probably neccesary
                 List<object> nodes = new List<object>();
                 Dictionary<string, object> nodesdict = new Dictionary<string, object>();
@@ -170,7 +175,7 @@ namespace BBRRevival.Services.Controllers
                 dict.Add("totalCoinsEarned", 100000);
 
 
-                dict.Add("planetVersions", new List<object> { adpdict, tpdict, ofcarpdict, rmcarpdict });
+                dict.Add("planetVersions", new List<object> { adpdict, tpdict, ofcarpdict, rmcarpdict, metadatadict });
 
                 dict.Add("paths", paths);
 

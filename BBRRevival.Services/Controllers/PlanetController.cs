@@ -1,4 +1,5 @@
-﻿using BBRRevival.Services.Helpers;
+﻿using BBRRevival.Services.API;
+using BBRRevival.Services.Helpers;
 using BBRRevival.Services.Routing;
 using Newtonsoft.Json;
 using Serilog;
@@ -68,7 +69,12 @@ namespace BBRRevival.Services.Controllers
             //string cleanJson  = Regex.Replace(Encoding.Default.GetString(bytes), @"[\x00-\x1F\x7F]", ""); //string pattern = @"[\x00-\x1F\x7F]";
 
             //byte[] bytes = FilePacker.ZipBytes(Encoding.UTF8.GetBytes(json));
-            byte[] bytes = FilePacker.ZipBytes(Encoding.UTF8.GetBytes(File.ReadAllText("LocalInitialData")));
+
+            Log.Verbose(_request.RawUrl);
+
+            var planet = _request.QueryString["planet"];
+            
+            byte[] bytes = FilePacker.ZipBytes(Encoding.UTF8.GetBytes(File.ReadAllText($"{planet}LocalInitialData.txt")));
 
             data = bytes;
 
