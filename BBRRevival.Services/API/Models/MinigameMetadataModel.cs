@@ -99,13 +99,13 @@ namespace BBRRevival.Services.API.Models
         public int clientVersion;
 
         // Token: 0x040021BA RID: 8634
-        public PsGameDifficulty difficulty;
+        public string difficulty;
 
         // Token: 0x040021BB RID: 8635
-        public PsGameMode gameMode = PsGameMode.Race;
+        public string gameMode = PsGameMode.Race.ToString();
 
         // Token: 0x040021BC RID: 8636
-        public PsRating rating = PsRating.Unrated;
+        public string rating = PsRating.Unrated.ToString();
 
         // Token: 0x040021BD RID: 8637
         public bool played;

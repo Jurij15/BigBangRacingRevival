@@ -200,7 +200,7 @@ namespace BBRRevival.Services.Controllers
         }
 
         [Route("POST", "/v2/player/data/change")]
-        public async void SetPlayerFriendData()
+        public async void SetPlayerData()
         {
             byte[] data = null;
 
