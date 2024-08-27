@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace BBRRevival.Services.API.Models
 {
@@ -165,6 +167,8 @@ namespace BBRRevival.Services.API.Models
         public Hashtable creatorUpgrades;
 
         // Token: 0x040021D0 RID: 8656
+        public float gameQuality;
+        
         public float quality;
 
         // Token: 0x040021D1 RID: 8657

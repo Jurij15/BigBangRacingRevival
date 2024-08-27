@@ -102,8 +102,8 @@ namespace BBRRevival.Services.Controllers
                 Dictionary<string, object> metadatadict = new Dictionary<string, object>(); //add in another one that is not adventure, maybe it will hit the callback
                 metadatadict.Add("planet", "Metadata");
                 metadatadict.Add("version", 2);
-
-                //planet paths, probably neccesary
+                
+                //planet paths, neccesary, kt crashes without them for some reason
                 List<object> nodes = new List<object>();
                 Dictionary<string, object> nodesdict = new Dictionary<string, object>();
 
@@ -120,9 +120,10 @@ namespace BBRRevival.Services.Controllers
                 //path.Add("type", "1");
                 path.Add("nodes", nodes);
                 path.Add("startNode", "1");
-                path.Add("planet", "RacingMotorcycle");
+                path.Add("planet", "AdventureOffroadCar");
 
                 paths.Add(path);
+                
                 //add tournament things, looks like it is neccesary to do this idk why
                 Dictionary<string, object> edict = new Dictionary<string, object>();
                 edict.Add("eventName", "TestEvemt");
@@ -176,8 +177,9 @@ namespace BBRRevival.Services.Controllers
 
 
                 dict.Add("planetVersions", new List<object> { adpdict, tpdict, ofcarpdict, rmcarpdict, metadatadict });
-
+                
                 dict.Add("paths", paths);
+                
 
                 data = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(dict));
             }

@@ -45,13 +45,21 @@ public class Router
                                 from m in t.GetMethods()
                                 where m.GetCustomAttributes(typeof(RouteAttribute), false).Length > 0
                                 select m;
-        Log.Verbose($"Methods Count: {controllerMethods.Count()}");
 
-        Log.Verbose("Methods Found:");
+        if (LogOptions.logRequestsBuilder)
+        {
+            Log.Verbose($"Methods Count: {controllerMethods.Count()}");   
+            Log.Verbose("Methods Found:");
+        }
+        
         foreach (var method in controllerMethods)
         {
             RouteAttribute route = (RouteAttribute)method.GetCustomAttributes(typeof(RouteAttribute), false)[0];
-            Log.Verbose($"{route.Route}, {method.Name}");
+            
+            if (LogOptions.logRequestsBuilder)
+            {
+                Log.Verbose($"{route.Route}, {method.Name}");
+            }
 
             _routes.Add(new Route(route, method));
         }

@@ -86,6 +86,37 @@ namespace BBRRevival.Services.Controllers
 
             _response.Close();
         }
+        
+        [Route("POST", "/v4/minigame/publish")]
+        public async void PublishMinigame()
+        {
+            IMinigameService minigameService = App.Services.GetService<IMinigameService>();
+
+            byte[] data = null;
+
+            Dictionary<string, object> map = new Dictionary<string, object>();
+            map.Add("id", "1234");
+            map.Add("name", "testname");
+
+            List<object> maps = new List<object>();
+            maps.Add(map);
+
+            data = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(map));
+
+            //Console.WriteLine(this.RequestBodyAsync().Result);
+
+            var level = this.RequestBodyBytesAsync().Result;
+            var fileSizes = _request.Headers["FILE_SIZES"].ToString();
+
+            await minigameService.SaveMinigame(level, fileSizes);
+
+            ResponseHelper.AddContentType(_response);
+            ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request);
+
+            await _response.OutputStream.WriteAsync(data, 0, data.Length);
+
+            _response.Close();
+        }
 
         [Route("GET", "/v1/minigame/meta/find")]
         public async void FindMinigame()

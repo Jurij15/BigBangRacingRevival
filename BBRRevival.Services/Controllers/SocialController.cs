@@ -38,9 +38,39 @@ namespace BBRRevival.Services.Controllers
         {
             byte[] data = null;
 
-            Dictionary<string, object> friends = new Dictionary<string, object>();
+            Dictionary<string, object> dict = new Dictionary<string, object>();
 
-            data = Encoding.Default.GetBytes(JsonConvert.SerializeObject(friends));
+            dict.Add("playerId", "12345678");
+            dict.Add("developer", true);
+            dict.Add("countryCode", "386");
+            dict.Add("teamid", "0");
+            dict.Add("teamName", "BigTeamNameIDK");
+            //dict.Add("teamRole", Enums.TeamRole.Creator.ToString());
+            dict.Add("hasJoinedTeam", true);
+            dict.Add("youtubeName", "TempYtName");
+            dict.Add("youtubeId", "ytid");
+
+            //dict.Add("playerId", Guid.NewGuid().ToString());
+            dict.Add("name", "Jurij15");
+            dict.Add("tag", "JurijG");
+            dict.Add("itemDbVersion", 0);
+            dict.Add("AcceptNotifications", true);
+            dict.Add("nameChangesDone", 0);
+            dict.Add("level", 100);
+
+            dict.Add("mcRank", 4000);
+            dict.Add("carRank", 4000);
+
+            dict.Add("coins", 1000000);
+            dict.Add("diamonds", 1000000);
+            dict.Add("copper", 1000000);
+            dict.Add("shards", 1000000);
+
+            dict.Add("xp", 100000);
+            dict.Add("totalLikes", 100000);
+            dict.Add("totalCoinsEarned", 100000);
+            
+            data = Encoding.Default.GetBytes(JsonConvert.SerializeObject(dict));
 
             ResponseHelper.AddContentType(_response);
             ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request, true);

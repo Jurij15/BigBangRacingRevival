@@ -28,10 +28,17 @@ namespace BBRRevival.Services.Internal.Services
             {
                 if (File.Exists(Path.Combine(CommonPaths.MinigamesRootPath, id, "metadata")))
                 {
-                    model = JsonConvert.DeserializeObject<MinigameMetadataModel>(await File.ReadAllTextAsync(Path.Combine(CommonPaths.MinigamesRootPath, id, "metadata")));
+                    model = JsonConvert.DeserializeObject<MinigameMetadataModel>(await File.ReadAllTextAsync(Path.Combine(CommonPaths.MinigamesRootPath, "de42422404344c0684c95258de6f071c", "metadata")));
                 }
             }
 
+            if (model is null)
+            {
+                Log.Warning("Model is null");
+            }
+            
+            model.gameQuality = model.quality;
+            
             Log.Information($"Loaded Metadata for {id}");
 
             return model;
@@ -42,7 +49,7 @@ namespace BBRRevival.Services.Internal.Services
             Log.Information("Saving Minigame");
 
             ///More info on arrays
-            ///The first array is some minigame data in bytes (idk what atm)
+            ///The first array is minigame data in bytes
             ///the second is the actuall level data
             ///the third is screenshot data, only one or maybe more?
             ///the forth one is some other json, probably minigame data
@@ -68,6 +75,36 @@ namespace BBRRevival.Services.Internal.Services
             {
                 var json = Encoding.UTF8.GetString(arrays[2]); //this might not be json but screenshot data, depends on chances
                 Console.WriteLine(json);
+
+                bool isarray3screenshotdata = false;
+                
+                try
+                {
+                    var array3json = JsonConvert.DeserializeObject<string>(Encoding.UTF8.GetString(arrays[3]));
+                }
+                catch (Exception e)
+                {
+                    //the third array is screenshot data
+                    isarray3screenshotdata = true;
+                }
+
+                if (!isarray3screenshotdata)
+                {
+                    Log.Verbose("array3 is not screenshot data");
+                }
+
+                if (isarray3screenshotdata)
+                {
+                    //TODO: save screenshots here
+                    try
+                    {
+                        Log.Verbose(Encoding.Default.GetString(arrays[4]));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+                }
             }
 
             if (!Directory.Exists(Path.Combine(CommonPaths.MinigamesRootPath, serializedMetadata.id)))
