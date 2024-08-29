@@ -2,8 +2,8 @@
 A WIP custom server for a game called Big Bang Racing, released by TraplightGames in 2016. As of late 2022, the game servers were shut down.
 
 # Project state
-Using a modified apk (with a few aditional checks patched out (uploading apk soon)), you should be able to get into the main menu and click around. I will work on it from time to time, any help is wanted. At the moment, I am stuck at replicating the ServerInitialData file (that file contains nodes and lanes with the game data like assets, vehicles, etc...).
-Also, please ignore the Server project (it was only meant for testing, before i rewrote it in Services).
+Using a modified apk (instructions below), you should be able to get into the main menu and click around. I will work on it from time to time, any help is wanted. At the moment, all effort is going into making the adventure road work.
+Also, please ignore the Server project (it was only meant for testing, before i rewrote it in Services). When building, build the Tester project and unload the Server project.
 
 # Patching the apk (change url, remove encryption and hash checking)
 - Decompile the original apk
