@@ -17,26 +17,21 @@ using System.Windows.Shapes;
 namespace BBRRevival.ControlPanel.Pages.Views
 {
     /// <summary>
-    /// Interaction logic for DashboardVIew.xaml
+    /// Interaction logic for RequestsView.xaml
     /// </summary>
-    public partial class DashboardVIew : Page
+    public partial class RequestsView : Page
     {
-        public DashboardViewModel ViewModel { get; set; } = new();
+        public RequestsViewModel ViewModel { get; }
 
-        public DashboardVIew()
+        public RequestsView()
         {
+            if (ViewModel is null)
+            {
+                ViewModel = new();
+            }
+
             InitializeComponent();
             this.DataContext = ViewModel;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.StartServer();
-        }
-
-        private void StopServerButton_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.StopServer();
         }
     }
 }

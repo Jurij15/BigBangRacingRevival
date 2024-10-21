@@ -17,7 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\BBRRevival.Server\BBRRevival.Server.csproj" />
+    <ProjectReference Include="..\BBRRevival.Services\BBRRevival.Services.csproj" />
   </ItemGroup>
 
 </Project>

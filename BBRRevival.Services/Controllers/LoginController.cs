@@ -202,7 +202,7 @@ namespace BBRRevival.Services.Controllers
         }
 
         [Route("POST", "/v2/player/data/change")]
-        public async void SetPlayerData()
+        public async void ChangePlayerData()
         {
             byte[] data = null;
 
@@ -211,11 +211,11 @@ namespace BBRRevival.Services.Controllers
 
             data = Encoding.Default.GetBytes(JsonConvert.SerializeObject(path));
 
-            Console.WriteLine("request headers");
-            foreach (var item in _request.Headers)
-            {
-                Console.WriteLine(item);
-            }
+            var playerData = await RequestBodyAsync();
+
+
+
+            await File.WriteAllTextAsync($"TEMPplayerDataChange{new Random().Next()}.json", playerData);
 
             ResponseHelper.AddContentType(_response);
             ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request);

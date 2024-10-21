@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:BBRRevival.ControlPanel"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:BBRRevival.ControlPanel.Pages.Views"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="BBRRevival - Server Control Panel"
     Width="1200"
@@ -19,14 +20,26 @@
         </Grid.RowDefinitions>
         <ui:TitleBar Title="BBRRevival - Server Control Panel" Grid.Row="0" />
         <ui:NavigationView
+            x:Name="RootNavigationView"
             Grid.Row="1"
+            BreadcrumbBar="{Binding ElementName=BreadcrumbBar}"
             IsBackButtonVisible="Collapsed"
             IsPaneOpen="True"
             IsPaneToggleVisible="False"
             OpenPaneLength="220"
             PaneDisplayMode="Left">
+
+            <ui:NavigationView.Header>
+                <StackPanel Margin="42,32,42,20">
+                    <ui:BreadcrumbBar x:Name="BreadcrumbBar" />
+                </StackPanel>
+            </ui:NavigationView.Header>
+
             <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem Content="Dashboard">
+                <ui:NavigationViewItem
+                    Content="Dashboard"
+                    NavigationCacheMode="Required"
+                    TargetPageType="{x:Type pages:DashboardVIew}">
                     <ui:NavigationViewItem.Icon>
                         <ui:SymbolIcon Symbol="Board20" />
                     </ui:NavigationViewItem.Icon>
@@ -41,9 +54,20 @@
                         <ui:SymbolIcon Symbol="Elevator20" />
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem Content="Requests">
+                <ui:NavigationViewItem
+                    Content="Requests"
+                    NavigationCacheMode="Required"
+                    TargetPageType="{x:Type pages:RequestsView}">
                     <ui:NavigationViewItem.Icon>
                         <ui:SymbolIcon Symbol="ArrowShuffle20" />
+                    </ui:NavigationViewItem.Icon>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem
+                    Content="Logs"
+                    NavigationCacheMode="Required"
+                    TargetPageType="{x:Type pages:LogView}">
+                    <ui:NavigationViewItem.Icon>
+                        <ui:SymbolIcon Symbol="List20" />
                     </ui:NavigationViewItem.Icon>
                 </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>

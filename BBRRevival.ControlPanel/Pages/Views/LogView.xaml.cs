@@ -17,26 +17,22 @@ using System.Windows.Shapes;
 namespace BBRRevival.ControlPanel.Pages.Views
 {
     /// <summary>
-    /// Interaction logic for DashboardVIew.xaml
+    /// Interaction logic for LogView.xaml
     /// </summary>
-    public partial class DashboardVIew : Page
+    public partial class LogView : Page
     {
-        public DashboardViewModel ViewModel { get; set; } = new();
+        LogViewModel ViewModel { get; }
 
-        public DashboardVIew()
+        public LogView()
         {
             InitializeComponent();
+
+            if (ViewModel is null)
+            {
+                ViewModel = new();
+            }
+
             this.DataContext = ViewModel;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.StartServer();
-        }
-
-        private void StopServerButton_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.StopServer();
         }
     }
 }

@@ -25,6 +25,12 @@ namespace BBRRevival.Services.Http
             IP = ip;
         }
 
+        public void Stop()
+        {
+            listener.Stop();
+            Log.Verbose("HTTP Listener Stopped!");
+        }
+
         public void Start()
         {
             listener.Start();

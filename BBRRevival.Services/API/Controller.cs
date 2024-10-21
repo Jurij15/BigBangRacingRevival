@@ -17,12 +17,14 @@ public class Controller
     protected DatabaseManager databaseManager { get; set; }
 
     protected string RawUrl { get; set; }
+    protected MemoryStream BodyMemoryStream;
 
     protected async Task<string> RequestBodyAsync()
     {
         Log.Debug("Parsing request body");
         //get request body
-        using var reader = new StreamReader(_request.InputStream);
+        BodyMemoryStream.Position = 0;
+        using var reader = new StreamReader(BodyMemoryStream, Encoding.Default, true, 1024, true);
         string body = await reader.ReadToEndAsync();
         Log.Debug("Done parsing request body");
         return body;
@@ -30,20 +32,23 @@ public class Controller
 
     protected async Task<byte[]> RequestBodyBytesAsync()
     {
-        Log.Debug("Parsing request body");
+        //TODO: no real need to copy this to so many arrays here, refactor ASAP
+        Log.Debug("Parsing request body as bytes");
+        BodyMemoryStream.Position = 0;
         using var memoryStream = new MemoryStream();
         await _request.InputStream.CopyToAsync(memoryStream);
-        Log.Debug("Done parsing request body");
+        Log.Debug("Done parsing request body as bytes");
         return memoryStream.ToArray();
     }
 
-    public void Handle(MethodInfo method, HttpListenerRequest request, HttpListenerResponse response, APIConfig config, SessionsManager sessionsmanager,
+    public void Handle(MethodInfo method, HttpListenerRequest request, HttpListenerResponse response, APIConfig config, MemoryStream bodyBytes,SessionsManager sessionsmanager,
         DatabaseManager dbManager)
     {
         Log.Verbose($"Handling request: {method.Name}");
         _request = request;
         _response = response;
         _config = config;
+        BodyMemoryStream = bodyBytes;
         sessionsManager = sessionsmanager;
         databaseManager = dbManager;
 

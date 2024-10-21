@@ -20,7 +20,7 @@
     <None Remove="Assets\Music\PuzzleMusic1.bank" />
     <None Remove="Assets\Music\PuzzleMusic2.bank" />
     <None Remove="Assets\Music\RacingMusic1.bank" />
-    <None Remove="Assets\PlayerData" />
+    <None Remove="Assets\PlayerData.sqlite3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -66,9 +66,6 @@
     <Content Include="Assets\Music\RacingMusic1.bank">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\PlayerData">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -81,6 +78,12 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\ServerData.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
