@@ -19,6 +19,7 @@ namespace BBRRevival.Services.Controllers
         {
             byte[] data = null;
 
+            //everything here can be removed, i dont think its usefull anymore
             Dictionary<string, object> datas2 = new Dictionary<string, object>();
             datas2.Add("nodeType", "9");//undefined
             datas2.Add("itemName", "9");//undefined
@@ -74,7 +75,7 @@ namespace BBRRevival.Services.Controllers
 
             var planet = _request.QueryString["planet"];
             
-            byte[] bytes = FilePacker.ZipBytes(Encoding.UTF8.GetBytes(File.ReadAllText($"{planet}LocalInitialData.txt")));
+            byte[] bytes = FilePacker.ZipBytes(Encoding.UTF8.GetBytes(File.ReadAllText($"Assets\\InitialData\\{planet}LocalInitialData.txt")));
 
             data = bytes;
 
