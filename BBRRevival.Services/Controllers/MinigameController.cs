@@ -125,6 +125,7 @@ namespace BBRRevival.Services.Controllers
             byte[] data = null;
 
             var levelId = _request.QueryString["id"];
+            //var levelId = "f6f765c6fc064338b4d28560eac2ccbf-workingPub";
             var meta = await minigameService.GetMinigameMetadata(levelId);
 
             var json = JsonConvert.SerializeObject(meta);
@@ -154,7 +155,7 @@ namespace BBRRevival.Services.Controllers
 
             Log.Verbose(levelId);
 
-            data = File.ReadAllBytes("levelTest.txt");
+            data = File.ReadAllBytes(Path.Combine(CommonPaths.MinigamesRootPath, "f6f765c6fc064338b4d28560eac2ccbf-workingPub", "level"));
 
             ResponseHelper.AddContentType(_response);
             ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request, false);

@@ -191,7 +191,7 @@ namespace BBRRevival.Services.Controllers
             Log.Verbose("All Headers:");
             foreach (string item in _request.Headers)
             {
-                Log.Verbose(item);
+               // Log.Verbose(item);
             }
 
             //send the request

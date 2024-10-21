@@ -28,7 +28,7 @@ namespace BBRRevival.Services.Internal.Services
             {
                 if (File.Exists(Path.Combine(CommonPaths.MinigamesRootPath, id, "metadata")))
                 {
-                    model = JsonConvert.DeserializeObject<MinigameMetadataModel>(await File.ReadAllTextAsync(Path.Combine(CommonPaths.MinigamesRootPath, "de42422404344c0684c95258de6f071c", "metadata")));
+                    model = JsonConvert.DeserializeObject<MinigameMetadataModel>(await File.ReadAllTextAsync(Path.Combine(CommonPaths.MinigamesRootPath, id, "metadata")));
                 }
             }
 
@@ -49,7 +49,7 @@ namespace BBRRevival.Services.Internal.Services
             Log.Information("Saving Minigame");
 
             ///More info on arrays
-            ///The first array is minigame data in bytes
+            ///The first array is minigame metadata in bytes
             ///the second is the actuall level data
             ///the third is screenshot data, only one or maybe more?
             ///the forth one is some other json, probably minigame data
@@ -58,8 +58,10 @@ namespace BBRRevival.Services.Internal.Services
             ///the third and the fourth one can be swapped
             byte[][] arrays = FilePacker.UncombineByteArrays(data, fileSizes);
 
+            Log.Verbose($"Arrays Count: {arrays.Count()}");
             var minigameInfoData = Encoding.UTF8.GetString(arrays[0]);
             var minigameLevelData = arrays[1];
+            byte[] screenshotdata = null;
 
             var serializedMetadata = JsonConvert.DeserializeObject<MinigameMetadataModel>(minigameInfoData);
 
@@ -68,13 +70,12 @@ namespace BBRRevival.Services.Internal.Services
             var jsonData = JsonConvert.SerializeObject(serializedMetadata, Formatting.Indented); //just to pretty-print
             
 
-            serializedMetadata.DebugPrint(); //remove later on
+            //serializedMetadata.DebugPrint(); //remove later on
 
             //TODO: other data like screenshots and the other json
             if (arrays.Count() > 2)
             {
                 var json = Encoding.UTF8.GetString(arrays[2]); //this might not be json but screenshot data, depends on chances
-                Console.WriteLine(json);
 
                 bool isarray3screenshotdata = false;
                 
@@ -95,10 +96,11 @@ namespace BBRRevival.Services.Internal.Services
 
                 if (isarray3screenshotdata)
                 {
-                    //TODO: save screenshots here
                     try
                     {
-                        Log.Verbose(Encoding.Default.GetString(arrays[4]));
+                        screenshotdata = arrays[2];
+
+                        Console.WriteLine(arrays[3]);
                     }
                     catch (Exception e)
                     {
@@ -114,6 +116,10 @@ namespace BBRRevival.Services.Internal.Services
 
             await File.WriteAllTextAsync(Path.Combine(CommonPaths.MinigamesRootPath, serializedMetadata.id, "metadata"), jsonData);
             await File.WriteAllBytesAsync(Path.Combine(CommonPaths.MinigamesRootPath, serializedMetadata.id, "level") , minigameLevelData);
+            if (screenshotdata is not null)
+            {
+                await File.WriteAllBytesAsync(Path.Combine(CommonPaths.MinigamesRootPath, serializedMetadata.id, "screenshot.jpg"), screenshotdata);
+            }
 
             Log.Information($"Saved Minigame with id {serializedMetadata.id}");
         }
