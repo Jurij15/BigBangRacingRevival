@@ -2,7 +2,7 @@
 
 namespace BBRRevival.Services.API
 {
-    public struct PlayerData
+    public class PlayerData
     {
         // Token: 0x04001E43 RID: 7747
         public bool cheater;

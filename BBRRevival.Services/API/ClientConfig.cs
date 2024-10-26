@@ -9,76 +9,31 @@ namespace BBRRevival.Services.API
 {
     public class ClientConfig
     {
-        // Token: 0x040021DF RID: 8671
-        public int carRefreshMinutes;
-
-        // Token: 0x040021E0 RID: 8672
-        public int freshFreeInterval;
-
-        // Token: 0x040021E1 RID: 8673
-        public int keysAtStart;
-
-        // Token: 0x040021E2 RID: 8674
-        public int diamondsAtStart;
-
-        // Token: 0x040021E3 RID: 8675
-        public int coinsAtStart;
-
-        // Token: 0x040021E4 RID: 8676
-        public int boltsAtStart;
-
-        // Token: 0x040021E5 RID: 8677
-        public int fbConnectReward;
-
-        // Token: 0x040021E6 RID: 8678
-        public int dailyGemAmount;
-
-        // Token: 0x040021E7 RID: 8679
-        public int videoAdCount;
-
-        // Token: 0x040021E8 RID: 8680
-        public int videoAdCoolDown;
-
-        // Token: 0x040021E9 RID: 8681
-        public int freshFreeCount;
-
-        // Token: 0x040021EA RID: 8682
-        public int freshFreeCoolDown;
-
-        // Token: 0x040021EB RID: 8683
-        public int inRaceDiamondSpawnProbability;
-
-        // Token: 0x040021EC RID: 8684
-        public int superLikeRefreshMinutes;
-
-        // Token: 0x040021ED RID: 8685
-        public int offerCooldownMinutes;
-
-        // Token: 0x040021EE RID: 8686
-        public int offerDurationMinutes;
-
-        // Token: 0x040021EF RID: 8687
-        public int minimumTournamentNitros;
-
-        // Token: 0x040021F0 RID: 8688
-        public int tournamentYoutuberFollowNitros;
-
-        // Token: 0x040021F1 RID: 8689
-        public int creatorRank1;
-
-        // Token: 0x040021F2 RID: 8690
-        public int creatorRank2;
-
-        // Token: 0x040021F3 RID: 8691
-        public int creatorRank3;
-
-        // Token: 0x040021F4 RID: 8692
-        public int creatorRank4;
-
-        // Token: 0x040021F5 RID: 8693
-        public int creatorRank5;
-
-        // Token: 0x040021F6 RID: 8694
-        public int creatorRank6;
+        public int SuperLikeRefreshMinutes { get; set; } = 12;
+        public int CarRefreshMinutes { get; set; } = 6;
+        public int FreshFreeInterval { get; set; } = 15;
+        public int FbConnectReward { get; set; } = 20;
+        public int DailyGemAmount { get; set; } = 10;
+        public int VideoAdCount { get; set; } = 2;
+        public int VideoAdCoolDown { get; set; } = 3600;
+        public int FreshFreeCount { get; set; } = 3;
+        public int FreshFreeCoolDown { get; set; } = 1800;
+        public int InRaceDiamondSpawnProbability { get; set; } = 25;
+        public int BoltsAtStart { get; set; } = 0;
+        public int CoinsAtStart { get; set; } = 1000;
+        public int DiamondsAtStart { get; set; } = 50;
+        public int KeysAtStart { get; set; } = 5;
+        public int OfferCooldownMinutes { get; set; } = 4320;
+        public int OfferDurationMinutes { get; set; } = 60;
+        public int MinimumTournamentNitros { get; set; } = 5;
+        public int CreatorRank1 { get; set; } = 100;
+        public int CreatorRank2 { get; set; } = 1000;
+        public int CreatorRank3 { get; set; } = 10000;
+        public int CreatorRank4 { get; set; } = 100000;
+        public int CreatorRank5 { get; set; } = 1000000;
+        public int CreatorRank6 { get; set; } = 10000000;
+        public int TriesForAd { get; set; } = 0;
+        public int TriesForGems { get; set; } = 0;
+        public int TriesGemPrice { get; set; } = 0;
     }
 }
