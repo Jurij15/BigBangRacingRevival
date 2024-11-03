@@ -22,7 +22,7 @@ namespace BBRRevival.Services.Controllers
             Dictionary<string, object> friends = new Dictionary<string, object>();
             friends.Add("followees", new List<object>());
             friends.Add("friends", new List<object>());
-
+            //freind stuff. will add the followees dict later .
             List<object> friendlist = friends["friends"] as List<object>;
 
             Dictionary<string, object> frienddata = new Dictionary<string, object>();
