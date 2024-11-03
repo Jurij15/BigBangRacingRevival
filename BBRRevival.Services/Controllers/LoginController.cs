@@ -1,7 +1,6 @@
 ﻿using BBRRevival.Services.API;
 using BBRRevival.Services.Helpers;
 using BBRRevival.Services.Routing;
-using CodeStage.AntiCheat.ObscuredTypes;
 using Newtonsoft.Json;
 using Serilog;
 using System;
