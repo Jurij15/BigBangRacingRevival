@@ -48,7 +48,7 @@ namespace BBRRevival.ControlPanel.Services
         public async void Start()
         {
             //TODO: CHECK IF ANY PROCESSES ALREADY EXIST
-
+            //MODIFY THIS IP OR ELSE THE UI WONT WORK
             //TODO_: get the host ip 
             int port = 4451;
             string ip = "192.168.1.7";

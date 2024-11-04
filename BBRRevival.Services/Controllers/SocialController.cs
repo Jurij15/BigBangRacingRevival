@@ -22,6 +22,43 @@ namespace BBRRevival.Services.Controllers
             Dictionary<string, object> friends = new Dictionary<string, object>();
             friends.Add("followees", new List<object>());
             friends.Add("friends", new List<object>());
+            //freind stuff. will add the followees dict later .
+            List<object> friendlist = friends["friends"] as List<object>;
+
+            Dictionary<string, object> frienddata = new Dictionary<string, object>();
+            frienddata.Add("id", "24687531");
+            frienddata.Add("name", "Dodo Nickey");
+            frienddata.Add("tag", "dodonickey");
+            frienddata.Add("acceptNotifications", true);
+            frienddata.Add("facebookId", "uhihv67g9onob");
+            frienddata.Add("gameCenterId", "g76f7g8p9j8t33");
+            frienddata.Add("ninjaCreationTimestamp", "what");
+            frienddata.Add("countryCode", "284");
+            frienddata.Add("itemDbVersion", 0);
+            frienddata.Add("publishedMinigameCount", 2);
+            frienddata.Add("followerCount", 230000);
+            frienddata.Add("totalCoinsEarned", 100000000);
+            frienddata.Add("totalLikes", 100000000);
+            frienddata.Add("totalSuperLikes", 100000000);
+            frienddata.Add("mcTrophies", 100000000);
+            frienddata.Add("carTrophies", 100000000);
+            frienddata.Add("bigBangPoints", 100000000);
+            frienddata.Add("completedAdventures", 100000000);
+            frienddata.Add("racesWon", 100000000);
+            frienddata.Add("teamId", "ff1du7");
+            frienddata.Add("teamName", "SYS64738");
+            frienddata.Add("teamRole", "Creator");
+            frienddata.Add("hasJoinedTeam", true);
+            frienddata.Add("reward", 100);
+            frienddata.Add("lastSeasonEndCarTrophies", 100000000);
+            frienddata.Add("lastSeasonEndMcTrophies", 100000000);
+            frienddata.Add("racesThisSeason", 100000000);
+            frienddata.Add("completedSurvey", false);
+            frienddata.Add("gender", "Male");
+            frienddata.Add("ageGroup", "24");
+            frienddata.Add("developer", true);
+
+            friendlist.Add(frienddata);
 
             data = Encoding.Default.GetBytes(JsonConvert.SerializeObject(friends));
 
@@ -69,7 +106,7 @@ namespace BBRRevival.Services.Controllers
             dict.Add("xp", 100000);
             dict.Add("totalLikes", 100000);
             dict.Add("totalCoinsEarned", 100000);
-            
+
             data = Encoding.Default.GetBytes(JsonConvert.SerializeObject(dict));
 
             ResponseHelper.AddContentType(_response);
