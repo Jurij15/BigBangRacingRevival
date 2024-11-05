@@ -1,7 +1,7 @@
 # BigBangRacing Revival
 A WIP custom server for a game called Big Bang Racing, released by TraplightGames in 2016. As of late 2022, the game servers were shut down.
 
-### Important
+## Important
 In the current state, the server is not ready for playing yet, as there are many features missing.
 
 ## Getting Started
