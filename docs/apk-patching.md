@@ -4,6 +4,8 @@
 - [ApkTool](https://apktool.org/docs/install)
 - [dnSpy](https://github.com/dnSpyEx/dnSpy)
 
+- Some coding skills
+
 # Steps
 - Decompile the original apk
 - go to assets\bin\Data\Managed
