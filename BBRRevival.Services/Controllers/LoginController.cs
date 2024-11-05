@@ -1,4 +1,6 @@
 ﻿using BBRRevival.Services.API;
+using BBRRevival.Services.API.Models;
+using BBRRevival.Services.API.Models.Responses;
 using BBRRevival.Services.Helpers;
 using BBRRevival.Services.Routing;
 using Newtonsoft.Json;
@@ -7,6 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +17,68 @@ namespace BBRRevival.Services.Controllers
 {
     public class LoginController : Controller
     {
+        [Route("POST", "/v4/player/Test")]
+        public async void TestJsonConversion()
+        {
+            byte[] data = null;
+
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+
+            PlayerData player = new();
+            ClientConfig config = new();
+            Tournament tournament = new();
+            Event currentEvent = new();
+            List<PlanetVersionModel> PlanetVesions = new();
+
+            //playerdata
+
+            //tournament
+            tournament.tournamentId = "testTournamentID";
+            tournament.minigameId = "testMinigameID";
+            tournament.ccCap = 12.4f;
+            tournament.prizeCoins = 999;
+            tournament.acceptingNewScores = true;
+            tournament.ownerId = "testOwnerId";
+            tournament.ownerName = "testOwnerName";
+            tournament.claimed = false;
+
+            List<Dictionary<string, object>> tournamentUris = new List<Dictionary<string, object>>
+            {
+                        new Dictionary<string, object> { { "uri", "http://example.com/1" } },
+                        new Dictionary<string, object> { { "uri", "http://example.com/2" } },
+                        new Dictionary<string, object> { { "uri", "http://example.com/3" } }
+            };
+
+            //Event
+
+
+            //Planet paths
+            PlanetVesions.Add(new() { planet = "AdventureMotorcycle", version = 2 });
+            PlanetVesions.Add(new() { planet = "RacingOffroadCar", version = 2 });
+            PlanetVesions.Add(new() { planet = "AdventureOffroadCar", version = 2 });
+            PlanetVesions.Add(new() { planet = "RacingMotorcycle", version = 2 });
+            PlanetVesions.Add(new() { planet = "Metadata", version = 2 });
+
+            LoginResponseModel model = new();
+            model.PlayerData = player;
+            model.ClientConfig = config;
+            model.Tournament = tournament;
+            model.Event = currentEvent;
+            model.planetVersions = PlanetVesions;
+
+            var dictionary = model.ToDictionary();
+            var json = JsonConvert.SerializeObject(dictionary);
+
+            data = Encoding.Default.GetBytes(json);
+
+            //send the request
+            ResponseHelper.PrepareRequest(data, RawUrl, _response, _request);
+            await _response.OutputStream.WriteAsync(data, 0, data.Length);
+
+            _response.Close();
+
+        }
+
         [Route("POST", "/v4/player/login")]
         public async void PlayerLogin()
         {
@@ -21,8 +86,8 @@ namespace BBRRevival.Services.Controllers
             byte[] data = null;
 
             string Query = _request.Url.Query;
-            string param = Query.Split("&")[0];
-            string value = param.Split("=")[1];
+            //string param = Query.Split("&")[0];
+            //string value = param.Split("=")[1];
 
             string sessionId = sessionsManager.AddNewSessionId();
 
@@ -185,7 +250,7 @@ namespace BBRRevival.Services.Controllers
             }
             else
             {
-                Log.Verbose($"Value is {value}");
+                //Log.Verbose($"Value is {value}");
             }
 
             Log.Verbose("All Headers:");

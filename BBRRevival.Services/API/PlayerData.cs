@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using BBRRevival.Services.API.Models;
+using System.Collections;
+using System.Runtime.InteropServices.JavaScript;
 
 namespace BBRRevival.Services.API
 {
-    public class PlayerData
+    public class PlayerData : DictionaryModel
     {
         // Token: 0x04001E43 RID: 7747
         public bool cheater;

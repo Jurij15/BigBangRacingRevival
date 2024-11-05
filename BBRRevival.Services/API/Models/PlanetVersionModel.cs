@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BBRRevival.Services.API.Models
 {
-    public class PlanetVersionModel :JsonModel
+    public class PlanetVersionModel : DictionaryModel
     {
         public string planet;
         public int version;

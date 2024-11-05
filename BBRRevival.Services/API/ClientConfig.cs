@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BBRRevival.Services.API.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BBRRevival.Services.API
 {
-    public class ClientConfig
+    public class ClientConfig : DictionaryModel
     {
         public int SuperLikeRefreshMinutes { get; set; } = 12;
         public int CarRefreshMinutes { get; set; } = 6;
