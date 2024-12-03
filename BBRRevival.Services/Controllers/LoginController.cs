@@ -1,4 +1,6 @@
 ﻿using BBRRevival.Services.API;
+using BBRRevival.Services.API.Models;
+using BBRRevival.Services.API.Models.Responses;
 using BBRRevival.Services.Helpers;
 using BBRRevival.Services.Routing;
 using Newtonsoft.Json;
@@ -7,8 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +17,68 @@ namespace BBRRevival.Services.Controllers
 {
     public class LoginController : Controller
     {
+        [Route("POST", "/v4/player/Test")]
+        public async void TestJsonConversion()
+        {
+            byte[] data = null;
+
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+
+            PlayerData player = new();
+            ClientConfig config = new();
+            Tournament tournament = new();
+            Event currentEvent = new();
+            List<PlanetVersionModel> PlanetVesions = new();
+
+            //playerdata
+
+            //tournament
+            tournament.tournamentId = "testTournamentID";
+            tournament.minigameId = "testMinigameID";
+            tournament.ccCap = 12.4f;
+            tournament.prizeCoins = 999;
+            tournament.acceptingNewScores = true;
+            tournament.ownerId = "testOwnerId";
+            tournament.ownerName = "testOwnerName";
+            tournament.claimed = false;
+
+            List<Dictionary<string, object>> tournamentUris = new List<Dictionary<string, object>>
+            {
+                        new Dictionary<string, object> { { "uri", "http://example.com/1" } },
+                        new Dictionary<string, object> { { "uri", "http://example.com/2" } },
+                        new Dictionary<string, object> { { "uri", "http://example.com/3" } }
+            };
+
+            //Event
+
+
+            //Planet paths
+            PlanetVesions.Add(new() { planet = "AdventureMotorcycle", version = 2 });
+            PlanetVesions.Add(new() { planet = "RacingOffroadCar", version = 2 });
+            PlanetVesions.Add(new() { planet = "AdventureOffroadCar", version = 2 });
+            PlanetVesions.Add(new() { planet = "RacingMotorcycle", version = 2 });
+            PlanetVesions.Add(new() { planet = "Metadata", version = 2 });
+
+            LoginResponseModel model = new();
+            model.PlayerData = player;
+            model.ClientConfig = config;
+            model.Tournament = tournament;
+            model.Event = currentEvent;
+            model.planetVersions = PlanetVesions;
+
+            var dictionary = model.ToDictionary();
+            var json = JsonConvert.SerializeObject(dictionary);
+
+            data = Encoding.Default.GetBytes(json);
+
+            //send the request
+            ResponseHelper.PrepareRequest(data, RawUrl, _response, _request);
+            await _response.OutputStream.WriteAsync(data, 0, data.Length);
+
+            _response.Close();
+
+        }
+
         [Route("POST", "/v4/player/login")]
         public async void PlayerLogin()
         {
@@ -201,6 +264,7 @@ namespace BBRRevival.Services.Controllers
                 dict.Add("MotorcycleVisual", new Dictionary<string, object>());
 
                 var motorcycleVisual = (Dictionary<string, object>)dict["MotorcycleVisual"];
+                motorcycleVisual.Add("FeatherHat", false);
                 motorcycleVisual.Add("PaperBag", false);
                 motorcycleVisual.Add("OrangeHat", false);
                 motorcycleVisual.Add("WinterHat", false);
@@ -249,15 +313,16 @@ namespace BBRRevival.Services.Controllers
                 motorcycleVisual.Add("trail_anniversary", false);
                 motorcycleVisual.Add("trail_bubble", false);
                 motorcycleVisual.Add("trail_cash", false);
-                motorcycleVisual.Add("trail_death", true);
+                motorcycleVisual.Add("trail_death", false);
                 motorcycleVisual.Add("trail_feather", false);
                 motorcycleVisual.Add("trail_fire", false);
                 motorcycleVisual.Add("trail_kittypaw", false);
                 motorcycleVisual.Add("trail_rainbow", false);
                 motorcycleVisual.Add("trail_singular", false);
                 motorcycleVisual.Add("trail_snow", false);
-                motorcycleVisual.Add("trail_scifi", true);
+                motorcycleVisual.Add("trail_scifi", false);
                 motorcycleVisual.Add("trail_bat", false);
+                motorcycleVisual.Add("trail_boss", true);
                 motorcycleVisual.Add("ChickenHat", false);
                 motorcycleVisual.Add("WinterCap", false);
 
@@ -265,6 +330,7 @@ namespace BBRRevival.Services.Controllers
                 dict.Add("OffroadCarVisual", new Dictionary<string, object>());
 
                 var offroadCarVisual = (Dictionary<string, object>)dict["OffroadCarVisual"];
+                offroadCarVisual.Add("FeatherHat", false);
                 offroadCarVisual.Add("PaperBag", false);
                 offroadCarVisual.Add("OrangeHat", false);
                 offroadCarVisual.Add("WinterHat", false);
@@ -322,6 +388,7 @@ namespace BBRRevival.Services.Controllers
                 offroadCarVisual.Add("trail_snow", false);
                 offroadCarVisual.Add("trail_scifi", true);
                 offroadCarVisual.Add("trail_bat", false);
+                offroadCarVisual.Add("trail_boss", false);
                 offroadCarVisual.Add("ChickenHat", false);
                 offroadCarVisual.Add("WinterCap", false);
 
@@ -663,6 +730,19 @@ namespace BBRRevival.Services.Controllers
             FeedDict2.Add("newsFeed", true);
 
             FeedList.Add(FeedDict2);
+
+            Dictionary<string, object> FeedDict3 = new Dictionary<string, object>();
+            FeedDict2.Add("eventName", "Hello2!");
+            FeedDict2.Add("eventType", "URGENT");
+            FeedDict2.Add("id", "369852132");
+            FeedDict2.Add("header", "URGENT");
+            FeedDict2.Add("message", "Mike is someone who manipulates and exploits the most vulnerable among us, prioritizing his own desires over the well-being of others. He engages in deceitful behavior, often hiding his true intentions behind a facade of charm or trustworthiness. His actions demonstrate a complete disregard for the safety and dignity of children, driven by selfish impulses that utterly diminish his moral standing. He prefers to prey on the innocent, using his position of power to exploit, manipulate, and harm those who cannot defend themselves, leaving lasting scars on their lives. Mike's actions are a violation of trust, morality, and the very essence of humanity, marking him as a deeply harmful individual in every sense.");
+            FeedDict2.Add("label", "what");
+            FeedDict2.Add("popup", false);
+            FeedDict2.Add("floatingNode", false);
+            FeedDict2.Add("newsFeed", true);
+
+            FeedList.Add(FeedDict3);
 
             data = Encoding.Default.GetBytes(JsonConvert.SerializeObject(FeedData));
 

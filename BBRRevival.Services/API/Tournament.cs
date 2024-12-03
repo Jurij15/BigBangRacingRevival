@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BBRRevival.Services.API.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BBRRevival.Services.API
 {
-    public class Tournament
+    public class Tournament : DictionaryModel
     {
         public string tournamentId {  get; set; }
         public string minigameId {  get; set; }

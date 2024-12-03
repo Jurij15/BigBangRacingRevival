@@ -2,23 +2,24 @@ using Newtonsoft.Json;
 
 namespace BBRRevival.Services.API.Models.Responses;
 
-public class LoginResponseModel : JsonModel
+public class LoginResponseModel : DictionaryModel
 {
-    public PlayerData PlayerData { get; set; } = new();
-    public ClientConfig ClientConfig { get; set; }
-
-    public List<PlanetVersionModel> planetVersions { get; set; } = new();
+    public PlayerData PlayerData { get; set; }
 
     [JsonIgnore]
+    public ClientConfig ClientConfig { get; set; }
+
+    public List<PlanetVersionModel> planetVersions { get; set; }
+
     public Tournament Tournament { get; set; }
 
     [JsonIgnore]
-    public Event Event;
+    public Event Event { get; set; }
 
-    public override string ToJson()
+    public override Dictionary<string, object> ToDictionary(bool recursive = true)
     {
-        PlayerData.clientConfig = ClientConfig;
+        var dict = base.ToDictionary();
 
-        return base.ToJson();
+        return dict;
     }
 }

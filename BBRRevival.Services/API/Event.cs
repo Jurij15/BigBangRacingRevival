@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BBRRevival.Services.API.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BBRRevival.Services.API
 {
-    public class Event
+    public class Event : DictionaryModel
     {
         public string eventName {  get; set; }
         public string eventType {  get; set; }
