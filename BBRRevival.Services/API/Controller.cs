@@ -38,7 +38,7 @@ public class Controller
         using var memoryStream = new MemoryStream();
         await _request.InputStream.CopyToAsync(memoryStream);
         Log.Debug("Done parsing request body as bytes");
-        return memoryStream.ToArray();
+        return BodyMemoryStream.ToArray();
     }
 
     public void Handle(MethodInfo method, HttpListenerRequest request, HttpListenerResponse response, APIConfig config, MemoryStream bodyBytes,SessionsManager sessionsmanager,
