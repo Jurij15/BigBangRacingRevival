@@ -51,7 +51,7 @@ namespace BBRRevival.ControlPanel.Services
             //MODIFY THIS IP OR ELSE THE UI WONT WORK
             //TODO_: get the host ip 
             int port = 4451;
-            string ip = "192.168.1.7";
+            string ip = "192.168.0.24";
 
             string fullip = $"http://{ip}:{port}/";
 

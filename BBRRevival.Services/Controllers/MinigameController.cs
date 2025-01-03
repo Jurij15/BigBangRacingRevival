@@ -155,7 +155,7 @@ namespace BBRRevival.Services.Controllers
 
             Log.Verbose(levelId);
 
-            data = File.ReadAllBytes(Path.Combine(CommonPaths.MinigamesRootPath, "f6f765c6fc064338b4d28560eac2ccbf-workingPub", "level"));
+            data = File.ReadAllBytes(Path.Combine(CommonPaths.MinigamesRootPath, "217b17e97eb9488d8739016808deb1e1", "level"));
 
             ResponseHelper.AddContentType(_response);
             ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request, false);
