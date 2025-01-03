@@ -20,6 +20,9 @@ namespace BBRRevival.Services.Controllers
 
             data = Encoding.ASCII.GetBytes("");
 
+            _response.Headers.Add("GHOST_TIME", "12");
+            _response.Headers.Add("GHOST_NAME", "idk");
+
             ResponseHelper.AddContentType(_response);
             ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request);
 

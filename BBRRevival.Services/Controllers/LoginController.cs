@@ -722,27 +722,14 @@ namespace BBRRevival.Services.Controllers
             FeedDict2.Add("eventName", "Hello2!");
             FeedDict2.Add("eventType", "Special");
             FeedDict2.Add("id", "369852132");
-            FeedDict2.Add("header", "sihdij");
-            FeedDict2.Add("message", "testmessage");
+            FeedDict2.Add("header", "URGENT");
+            FeedDict2.Add("message", "123456");
             FeedDict2.Add("label", "what");
             FeedDict2.Add("popup", false);
             FeedDict2.Add("floatingNode", false);
             FeedDict2.Add("newsFeed", true);
 
             FeedList.Add(FeedDict2);
-
-            Dictionary<string, object> FeedDict3 = new Dictionary<string, object>();
-            FeedDict2.Add("eventName", "Hello2!");
-            FeedDict2.Add("eventType", "URGENT");
-            FeedDict2.Add("id", "369852132");
-            FeedDict2.Add("header", "URGENT");
-            FeedDict2.Add("message", "Mike is someone who manipulates and exploits the most vulnerable among us, prioritizing his own desires over the well-being of others. He engages in deceitful behavior, often hiding his true intentions behind a facade of charm or trustworthiness. His actions demonstrate a complete disregard for the safety and dignity of children, driven by selfish impulses that utterly diminish his moral standing. He prefers to prey on the innocent, using his position of power to exploit, manipulate, and harm those who cannot defend themselves, leaving lasting scars on their lives. Mike's actions are a violation of trust, morality, and the very essence of humanity, marking him as a deeply harmful individual in every sense.");
-            FeedDict2.Add("label", "what");
-            FeedDict2.Add("popup", false);
-            FeedDict2.Add("floatingNode", false);
-            FeedDict2.Add("newsFeed", true);
-
-            FeedList.Add(FeedDict3);
 
             data = Encoding.Default.GetBytes(JsonConvert.SerializeObject(FeedData));
 
@@ -828,6 +815,46 @@ namespace BBRRevival.Services.Controllers
             Followee.Add(Followeelevel);
 
             data = Encoding.Default.GetBytes(JsonConvert.SerializeObject(FolloweeLevels));
+
+            ResponseHelper.AddContentType(_response);
+            ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request);
+
+            await _response.OutputStream.WriteAsync(data, 0, data.Length);
+
+            _response.Close();
+        }
+
+        [Route("GET", "/v2/minigame/meta/search")]
+        public async void FIndLevels()
+        {
+            byte[] data = null;
+
+            Dictionary<string, object> LevelDatas = new Dictionary<string, object>();
+            LevelDatas.Add("data", new List<object>());
+
+            List<object> Level1 = LevelDatas["data"] as List<object>;
+
+            Dictionary<string, object> Level1Data = new Dictionary<string, object>();
+            Level1Data.Add("name", "Level1");
+            Level1Data.Add("id", "d1a79cbc63964a18a6ba05f11d5df82b");
+            Level1Data.Add("creatorId", "1238429");
+            Level1Data.Add("gameMode", "StarCollect");
+            Level1Data.Add("playerUnit", "OffroadCar");
+            Level1Data.Add("gameQuality", 0.0);
+
+            Level1.Add(Level1Data);
+
+            Dictionary<string, object> Level2Data = new Dictionary<string, object>();
+            Level2Data.Add("name", "Level2");
+            Level2Data.Add("id", "d1a79cbc63964a18a6ba05f11d5df82b");
+            Level2Data.Add("creatorId", "1238429");
+            Level2Data.Add("gameMode", "StarCollect");
+            Level2Data.Add("playerUnit", "OffroadCar");
+            Level2Data.Add("gameQuality", 0.0);
+
+            Level1.Add(Level2Data);
+
+            data = Encoding.Default.GetBytes(JsonConvert.SerializeObject(LevelDatas));
 
             ResponseHelper.AddContentType(_response);
             ResponseHelper.AddResponseHeaders(data, RawUrl, _response, _request);
