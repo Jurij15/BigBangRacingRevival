@@ -1,5 +1,6 @@
 # Patching the apk (change url, remove encryption and hash checking)
 # Requirements
+- a PC
 - Visual Studio 2022 (to build the server)
 - [ApkTool](https://apktool.org/docs/install)
 - [dnSpy](https://github.com/dnSpyEx/dnSpy)
