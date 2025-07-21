@@ -2,6 +2,7 @@
 using BBRRevival.Server.DB;
 using BBRRevival.Server.Interfaces;
 using BBRRevival.Server.Middleware;
+using BBRRevival.Server.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace BBRRevival.Server
@@ -20,6 +21,8 @@ namespace BBRRevival.Server
             // Register interface for abstraction (optional)
             builder.Services.AddScoped<IDatabaseContext>(provider =>
                 provider.GetRequiredService<SqliteDBContext>());
+
+            builder.Services.AddScoped<IMusicService, MusicService>();
 
             builder.Services.AddControllers();
 
