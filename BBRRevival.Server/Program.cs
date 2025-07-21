@@ -1,47 +1,49 @@
-﻿using BBRRevival.Services;
-using Serilog.Events;
-using Serilog;
-using System.Net;
+
+using BBRRevival.Server.DB;
+using BBRRevival.Server.Interfaces;
+using BBRRevival.Server.Middleware;
+using Microsoft.EntityFrameworkCore;
 
 namespace BBRRevival.Server
 {
-    internal class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            //get the host ip
-            int port = 4451;
-            string ip = "192.168.1.7";
+            var builder = WebApplication.CreateBuilder(args);
 
-            foreach (string arg in args)
+            // Add services to the container.
+
+            builder.Services.AddDbContext<SqliteDBContext>(options =>
+                options.UseSqlite(builder.Configuration.GetConnectionString("SqliteConnection")));
+
+            // Register interface for abstraction (optional)
+            builder.Services.AddScoped<IDatabaseContext>(provider =>
+                provider.GetRequiredService<SqliteDBContext>());
+
+            builder.Services.AddControllers();
+
+            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+            builder.Services.AddOpenApi();
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
             {
-                if (arg.Contains("-port="))
-                {
-                    port = Convert.ToInt32(arg.Replace("-port=", ""));
-                }
+                app.MapOpenApi();
             }
 
-            string fullip = $"http://{ip}:{port}/";
+            app.UseHttpsRedirection();
 
-            APIConfig config  = new APIConfig();
-            config.IP = fullip;
+            app.UseAuthorization();
 
-            Log.Logger = new LoggerConfiguration()
-                  .MinimumLevel.Verbose()
-                  .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Verbose)
-                  .CreateLogger();
+            //custom middleware for PLAY_*
+            app.UseMiddleware<PlayMiddleware>();
 
-            Log.Information("Server logger initialized");
-            Log.Information($"Server IP: {fullip}");
+            app.MapControllers();
 
-            APIService api = new APIService(config, Log.Logger);
-
-            Log.Information("Press enter key to stop the server!");
-
-            while (Console.ReadKey().Key != ConsoleKey.Enter)
-            {
-
-            }
+            app.Run();
         }
     }
 }
