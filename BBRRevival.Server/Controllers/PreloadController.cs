@@ -20,7 +20,7 @@ namespace BBRRevival.Server.Controllers
         }
 
         [HttpGet("checkVersion")]
-        public async Task<IActionResult> checkVersion()
+        public async Task<IActionResult> CheckVersion()
         {
             _logger.LogInformation("Returning checkVersion");
 
@@ -33,14 +33,24 @@ namespace BBRRevival.Server.Controllers
         }
 
         [HttpGet("checkFile")]
-        public async Task<IActionResult> checkFile()
+        public async Task<IActionResult> CheckFile()
         {
             _logger.LogInformation("Returning checkFile");
 
             var request = HttpContext.Request;
             string baseUrl = $"{request.Scheme}://{request.Host}";
 
-            string name = Request.QueryString.ToString().Split("&")[1].Remove(0, 5); //todo: replace this with properties
+            string name = string.Empty;
+
+            try
+            {
+                name = Request.QueryString.ToString().Split("&")[1].Remove(0, 5); //todo: replace this with properties 
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error reading file name");
+                return NotFound("Filename is missing!");
+            }
 
             CheckFileResponse response = new()
             {
@@ -56,11 +66,21 @@ namespace BBRRevival.Server.Controllers
 
         [HttpGet("downloadFile")]
         //[Produces("application/octet-stream")] //override json response
-        public async Task<IActionResult> downloadFile()
+        public async Task<IActionResult> DownloadFile()
         {
             _logger.LogInformation("Returning downloadFile");
 
-            string name = Request.QueryString.ToString().Replace("?", ""); //todo: replace this with properties
+            string name = string.Empty;
+
+            try
+            {
+                name = Request.QueryString.ToString().Replace("?", ""); //todo: replace this with properties
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error reading file name");
+                return NotFound("Filename is missing!");
+            }
 
             byte[] music = null;
 
@@ -68,7 +88,7 @@ namespace BBRRevival.Server.Controllers
 
             if (music is null)
             {
-                return NotFound();
+                return NotFound($"File with name {name}.bank not found");
             }
 
             return Ok(music);

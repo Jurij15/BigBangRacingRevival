@@ -8,6 +8,6 @@ namespace BBRRevival.Common.Responses.Preload
 {
     public class CheckVersionResponse
     {
-        public string version;
+        public string version { get; set; }
     }
 }
