@@ -3,6 +3,7 @@ using System;
 using BBRRevival.Server.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BBRRevival.Server.Migrations
 {
     [DbContext(typeof(SqliteDBContext))]
-    partial class SqliteDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250724205550_UpdatePlayerModel")]
+    partial class UpdatePlayerModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.7");
@@ -197,9 +200,6 @@ namespace BBRRevival.Server.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("NameChangesDone")
-                        .HasColumnType("INTEGER");
 
                     b.Property<int>("NewLevelsRated")
                         .HasColumnType("INTEGER");

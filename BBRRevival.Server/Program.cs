@@ -23,11 +23,14 @@ namespace BBRRevival.Server
                 provider.GetRequiredService<SqliteDBContext>());
 
             builder.Services.AddScoped<IMusicService, MusicService>();
+            builder.Services.AddScoped<IPlayerService, PlayerService>();
 
             builder.Services.AddControllers();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+
+            builder.WebHost.UseUrls("http://0.0.0.0:5000");
 
             var app = builder.Build();
 
