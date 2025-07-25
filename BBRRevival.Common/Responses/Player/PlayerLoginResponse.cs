@@ -1,5 +1,6 @@
 ﻿using BBRRevival.Common.Enums;
 using BBRRevival.Common.Model;
+using BBRRevival.Common.Responses.ResponsesModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,161 +10,287 @@ using System.Threading.Tasks;
 
 namespace BBRRevival.Common.Responses.Player
 {
-    internal class PlayerLoginResponse
+    public class PlayerLoginResponse
     {
+        public class ClientConfig
+        {
+            public int carRefreshMinutes { get; set; }
+            public int freshFreeInterval { get; set; }
+            public int keysAtStart { get; set; }
+            public int diamondsAtStart { get; set; }
+            public int coinsAtStart { get; set; }
+            public int boltsAtStart { get; set; }
+            public int fbConnectReward { get; set; }
+            public int dailyGemAmount { get; set; }
+            public int videoAdCount { get; set; }
+            public int videoAdCoolDown { get; set; }
+            public int freshFreeCount { get; set; }
+            public int freshFreeCoolDown { get; set; }
+            public int inRaceDiamondSpawnProbability { get; set; }
+            public int superLikeRefreshMinutes { get; set; }
+            public int offerCooldownMinutes { get; set; }
+            public int offerDurationMinutes { get; set; }
+            public int minimumTournamentNitros { get; set; }
+            public int tournamentYoutuberFollowNitros { get; set; }
+            public int creatorRank1 { get; set; }
+            public int creatorRank2 { get; set; }
+            public int creatorRank3 { get; set; }
+            public int creatorRank4 { get; set; }
+            public int creatorRank5 { get; set; }
+            public int creatorRank6 { get; set; }
+
+            public ClientConfig CreateFromModel(ClientConfigModel model)
+            {
+                carRefreshMinutes = model.CarRefreshMinutes;
+                freshFreeInterval = model.FreshFreeInterval;
+                keysAtStart = model.KeysAtStart;
+                diamondsAtStart = model.DiamondsAtStart;
+                coinsAtStart = model.CoinsAtStart;
+                boltsAtStart = model.BoltsAtStart;
+                fbConnectReward = model.FbConnectReward;
+                dailyGemAmount = model.DailyGemAmount;
+                videoAdCount = model.VideoAdCount;
+                videoAdCoolDown = model.VideoAdCoolDown;
+                freshFreeCount = model.FreshFreeCount;
+                freshFreeCoolDown = model.FreshFreeCoolDown;
+                inRaceDiamondSpawnProbability= model.InRaceDiamondSpawnProbability;
+                superLikeRefreshMinutes = model.SuperLikeRefreshMinutes;
+                offerCooldownMinutes = model.OfferCooldownMinutes;
+                offerDurationMinutes = model.OfferDurationMinutes;
+                minimumTournamentNitros = model.MinimumTournamentNitros;
+                tournamentYoutuberFollowNitros = 5; //default for now
+                creatorRank1 = model.CreatorRank1;
+                creatorRank2 = model.CreatorRank2;
+                creatorRank3 = model.CreatorRank3;
+                creatorRank4 = model.CreatorRank4;
+                creatorRank5 = model.CreatorRank5;
+                creatorRank6 = model.CreatorRank6;
+
+                return this;
+            }
+        }
+
+        #region Construction
         public PlayerLoginResponse() { }
 
         public void AddPlayerData(PlayerModel model)
         {
+            this.playerId = model.Id.ToString();
+            this.name = model.Name;
+            this.tag = model.Tag;
+            if (model.GameCenterId is not null)
+            {
+                this.gameCenterId = model.GameCenterId;
+            }
+            else
+            {
+                this.gameCenterId = "noid";
+            }
+            if (model.FacebookId is not null)
+            {
+                this.facebookId = model.FacebookId;
+            }
+            else
+            {
+                this.facebookId = "noid";
+            }
+            if (model.NinjaCreationTimestamp is not null)
+            {
+                this.ninjaCreationTimestamp = model.NinjaCreationTimestamp;
+            }
+            this.countryCode = model.CountryCode;
+            this.youtubeName = model.YoutubeName;
+            this.youtubeId = model.YoutubeId;
+            this.youtubeSubscriberCount = model.YoutubeSubscriberCount;
+            this.itemDbVersion = model.ItemDbVersion;
+            this.coins = model.Coins;
+            this.copper = model.Copper;
+            this.diamonds = model.Diamonds;
+            this.shards = model.Shards;
+            this.stars = model.Stars;
+            this.mcBoosters = model.McBoosters;
+            this.maxMcBoosters = model.MaxMcBoosters;
+            this.tournamentBoosters = model.TournamentBoosters;
+            this.carBoosters = model.CarBoosters;
+            this.maxCarBoosters = model.MaxCarBoosters;
+            this.itemLevel = model.ItemLevel;
+            this.level = model.Level;
+            this.cups = model.Cups;
+            this.mcRank = model.McRank;
+            this.carRank = model.VarRank;
+            this.mcTrophies = model.McTrophies;
+            this.carTrophies = model.CarTrophies;
+            this.bigBangPoints = model.BigBangPoints;
+            this.xp = model.Xp;
+            this.mcHandicap = model.McHandicap;
+            this.carHandicap = model.CarHandicap;
+            this.cardPurchases = model.CardPurchases;
+            this.gachaData = model.GachaData;
+            this.teamId = model.TeamId;
+            this.teamName = model.TeamName;
+            this.teamRoleName = model.TeamRoleName;
+            this.hasJoinedTeam = model.HasJoinedTeam;
+            this.seasonReward = model.SeasonReward;
+            this.teamKickReason = model.TeamKickReason;
+            this.lastSeasonEndMcTrophies = model.LastSeasonEndMcTrophies;
+            this.lastSeasonEndCarTrophies = model.LastSeasonEndCarTrophies;
+            this.racesThisSeason = model.RacesThisSeason;
+            this.ageGroup = model.AgeGroup;
+            this.gender = model.Gender;
+            this.completedSurvey = model.CompletedSurvey;
+            //this.upgrades = model.Upgrades; // Conversion to Dictionary<string,object> needed
+            this.boosters = model.Boosters;
+            this.acceptNotifications = model.AcceptNotifications;
+            this.mcBoosterRefreshTimeLeft = model.McBoosterRefreshTimeLeft;
+            this.carBoosterRefreshTimeLeft = model.CarBoosterRefreshTimeLeft;
+            this.superLikeRefreshTimeLeft = model.SuperLikeRefreshTimeLeft;
+            this.editorResources = model.EditorResources;
+            this.claimedTutorials = model.ClaimedTutorials;
+            this.hash = model.Hash;
+            this.publishedMinigameCount = model.PublishedMinigameCount;
+            this.followerCount = model.FollowerCount;
+            this.totalCoinsEarned = model.TotalCoinsEarned;
+            this.totalLikes = model.TotalLikes;
+            this.totalSuperLikes = model.TotalSuperLikes;
+            this.creatorLikes = model.CreatorLikes;
+            this.creatorRankingDelta = model.CreatorRankingDelta;
+            this.coinDoubler = model.CoinDoubler;
+            this.dirtBikeBundle = model.DirtBikeBundle;
+            this.trailsPurchased = model.TrailsPurchased;
+            this.hatsPurchased = model.HatsPurchased;
+            this.bundlesPurchased = model.BundlesPurchased;
+            this.pendingSpecialOfferChests = model.PendingSpecialOfferChests;
+            this.adventureLevelsCompleted = model.AdventureLevelsCompleted;
+            this.racesWon = model.RacesWon;
+            this.newLevelsRated = model.NewLevelsRated;
+            this.fbClaimed = model.FbClaimed;
+            this.igClaimed = model.IgClaimed;
+            this.forumClaimed = model.ForumClaimed;
+            //this.teamData = model.TeamData; // Conversion needed
+            this.nameChangesDone = model.NameChangesDone;
+
+            if (model.ClientConfig is not null)
+            {
+                AddClientConfig(model.ClientConfig);
+            }
+        }
+
+        public void AddProgression()
+        {
 
         }
 
+        public void AddPlanetVersion(PlanetVersion version)
+        {
+            planetVersions.Add(version);
+        }
 
+        public void AddClientConfig(ClientConfigModel model)
+        {
+            this.clientConfig = new ClientConfig().CreateFromModel(model);
+        }
 
-        // Token: 0x04001E43 RID: 7747
-        public bool cheater;
+        public void AddClientVersion(long version)
+        {
+            this.clientVersion = version;
+        }
 
-        // Token: 0x04001E44 RID: 7748
-        public bool developer;
+        public void AddVersionInfo(string info)
+        {
+            this.versionInfo = info;
+        }
+        #endregion
 
-        // Token: 0x04001E45 RID: 7749
-        public string playerId;
+        public List<object> paths { get; set; } = new();
 
-        // Token: 0x04001E46 RID: 7750
-        public string name;
+        public List<PlanetVersion> planetVersions { get; set; } = new();
 
-        // Token: 0x04001E47 RID: 7751
-        public string tag;
+        public long clientVersion {  get; set; }
+        public string versionInfo { get; set; }
 
-        // Token: 0x04001E48 RID: 7752
-        public string gameCenterId;
-
-        // Token: 0x04001E49 RID: 7753
-        public string facebookId;
-
-        // Token: 0x04001E4A RID: 7754
-        public string ninjaCreationTimestamp;
-
-        // Token: 0x04001E4B RID: 7755
-        public string countryCode;
-
-        // Token: 0x04001E4C RID: 7756
-        public string youtubeName;
-
-        // Token: 0x04001E4D RID: 7757
-        public string youtubeId;
-
-        // Token: 0x04001E4E RID: 7758
-        public int youtubeSubscriberCount;
-
-        // Token: 0x04001E4F RID: 7759
-        public int itemDbVersion;
-
-        // Token: 0x04001E50 RID: 7760
-        public int coins;
-
-        // Token: 0x04001E51 RID: 7761
-        public int copper;
-
-        // Token: 0x04001E52 RID: 7762
-        public int diamonds;
-
-        // Token: 0x04001E53 RID: 7763
-        public int shards;
-
-        // Token: 0x04001E54 RID: 7764
-        public int stars;
-
-        // Token: 0x04001E55 RID: 7765
-        public int mcBoosters;
-
-        // Token: 0x04001E56 RID: 7766
-        public int maxMcBoosters;
-
-        // Token: 0x04001E57 RID: 7767
-        public int tournamentBoosters;
-
-        // Token: 0x04001E58 RID: 7768
-        public int carBoosters;
-
-        // Token: 0x04001E59 RID: 7769
-        public int maxCarBoosters;
-
-        // Token: 0x04001E5A RID: 7770
-        public int itemLevel;
-
-        // Token: 0x04001E5B RID: 7771
-        public int level;
-
-        // Token: 0x04001E5C RID: 7772
-        public int cups;
-
-        // Token: 0x04001E5D RID: 7773
-        public int mcRank;
-
-        // Token: 0x04001E5E RID: 7774
-        public int carRank;
-
-        // Token: 0x04001E5F RID: 7775
-        public int mcTrophies;
-
-        // Token: 0x04001E60 RID: 7776
-        public int carTrophies;
-
-        // Token: 0x04001E61 RID: 7777
-        public int bigBangPoints;
-
-        // Token: 0x04001E62 RID: 7778
-        public int xp;
-
-        // Token: 0x04001E63 RID: 7779
-        public float mcHandicap;
-        public float carHandicap;
-        public string cardPurchases;
-        public string gachaData;
-        public string teamId;
-        public string teamName;
-        public string teamRoleName;
-        public bool hasJoinedTeam;
-        public int seasonReward;
-        public string teamKickReason;
-        public int lastSeasonEndMcTrophies;
-        public int lastSeasonEndCarTrophies;
-        public int racesThisSeason;
-        public string ageGroup;
-        public string gender;
-        public bool completedSurvey;
-        public Hashtable upgrades;
-        public Hashtable boosters;
-        public Hashtable data;
-        //public ClientConfig clientConfig;
-        public bool acceptNotifications;
-        public double mcBoosterRefreshTimeLeft;
-        public double carBoosterRefreshTimeLeft;
-        public double superLikeRefreshTimeLeft;
-        public Dictionary<string, int> editorResources;
-        public List<string> claimedTutorials;
-        public string hash;
-        public int publishedMinigameCount;
-        public int followerCount;
-        public int totalCoinsEarned;
-        public int totalLikes;
-        public int totalSuperLikes;
-        public int creatorLikes;
-        public int creatorRankingDelta;
-        public bool coinDoubler;
-        public bool dirtBikeBundle;
-        public List<string> trailsPurchased; //ISSUE
-        public List<string> hatsPurchased; //ISSUE
-        public List<string> bundlesPurchased; //ISSUE
-        public List<GachaType> pendingSpecialOfferChests; //ISSUE
-        public int adventureLevelsCompleted;
-        public int racesWon;
-        public int newLevelsRated;
-        public bool fbClaimed;
-        public bool igClaimed;
-        public bool forumClaimed;
+        #region Player Data
+        //player data
+        public bool cheater { get; set; }
+        public bool developer { get; set; }
+        public string playerId { get; set; }
+        public string name { get; set; }
+        public string tag { get; set; }
+        public string gameCenterId { get; set; }
+        public string facebookId { get; set; }
+        public string ninjaCreationTimestamp { get; set; }
+        public string countryCode { get; set; }
+        public string youtubeName { get; set; }
+        public string youtubeId { get; set; }
+        public int youtubeSubscriberCount { get; set; }
+        public int itemDbVersion { get; set; }
+        public int coins { get; set; }
+        public int copper { get; set; }
+        public int diamonds { get; set; }
+        public int shards { get; set; }
+        public int stars { get; set; }
+        public int mcBoosters { get; set; }
+        public int maxMcBoosters { get; set; }
+        public int tournamentBoosters { get; set; }
+        public int carBoosters { get; set; }
+        public int maxCarBoosters { get; set; }
+        public int itemLevel { get; set; }
+        public int level { get; set; }
+        public int cups { get; set; }
+        public int mcRank { get; set; }
+        public int carRank { get; set; }
+        public int mcTrophies { get; set; }
+        public int carTrophies { get; set; }
+        public int bigBangPoints { get; set; }
+        public int xp { get; set; }
+        public float mcHandicap { get; set; }
+        public float carHandicap { get; set; }
+        public string cardPurchases { get; set; }
+        public string gachaData { get; set; }
+        public string teamId { get; set; }
+        public string teamName { get; set; }
+        public string teamRoleName { get; set; }
+        public bool hasJoinedTeam { get; set; }
+        public int seasonReward { get; set; }
+        public string teamKickReason { get; set; }
+        public int lastSeasonEndMcTrophies { get; set; }
+        public int lastSeasonEndCarTrophies { get; set; }
+        public int racesThisSeason { get; set; }
+        public string ageGroup { get; set; }
+        public string gender { get; set; }
+        public bool completedSurvey { get; set; }
+        //public Hashtable upgrades { get; set; } //ISSUE, CONVERSION TO DICTINOARY<string,object> NEEDED TODO
+        public Hashtable boosters { get; set; }
+        public Hashtable data { get; set; }
+        public ClientConfig clientConfig { get; set; }
+        public bool acceptNotifications { get; set; }
+        public double mcBoosterRefreshTimeLeft { get; set; }
+        public double carBoosterRefreshTimeLeft { get; set; }
+        public double superLikeRefreshTimeLeft { get; set; }
+        public Dictionary<string, int> editorResources { get; set; } = new();
+        public List<string> claimedTutorials { get; set; } = new();
+        public string hash { get; set; }
+        public int publishedMinigameCount { get; set; }
+        public int followerCount { get; set; }
+        public int totalCoinsEarned { get; set; }
+        public int totalLikes { get; set; }
+        public int totalSuperLikes { get; set; }
+        public int creatorLikes { get; set; }
+        public int creatorRankingDelta { get; set; }
+        public bool coinDoubler { get; set; }
+        public bool dirtBikeBundle { get; set; }
+        public List<string> trailsPurchased { get; set; } = new(); //ISSUE
+        public List<string> hatsPurchased { get; set; } = new(); //ISSUE
+        public List<string> bundlesPurchased { get; set; } = new(); //ISSUE
+        public List<GachaType> pendingSpecialOfferChests { get; set; } = new(); //ISSUE
+        public int adventureLevelsCompleted { get; set; }
+        public int racesWon { get; set; }
+        public int newLevelsRated { get; set; }
+        public bool fbClaimed { get; set; }
+        public bool igClaimed { get; set; }
+        public bool forumClaimed { get; set; }
         //public TeamData teamData; //ISSUE
-        public int nameChangesDone;
+        public int nameChangesDone { get; set; }
+
+        #endregion
     }
 }

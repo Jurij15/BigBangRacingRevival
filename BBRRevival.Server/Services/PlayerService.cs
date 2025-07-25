@@ -21,10 +21,26 @@ namespace BBRRevival.Server.Services
             model.Id = new Guid();
             model.Name = "CoolPlayerName";
             model.NameChangesDone = 0;
+            model.AcceptNotifications = false;
+            model.Tag = "CoolPlayerTag";
+
+
+            model.CountryCode = "0";
 
             model.HasJoinedTeam = false;
             model.IsDeveloper = false;
-            
+
+            model.Upgrades = new();
+            model.Boosters = new();
+
+            model.EditorResources = new();
+
+            model.ClaimedTutorials  = new();
+
+            model.TrailsPurchased = new();
+            model.HatsPurchased= new();
+            model.BundlesPurchased = new();
+            model.PendingSpecialOfferChests = new();
             
             //TODO: CLIENT CONFIG!
 

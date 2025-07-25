@@ -1,5 +1,6 @@
 
 using BBRRevival.Server.DB;
+using BBRRevival.Server.Helpers;
 using BBRRevival.Server.Interfaces;
 using BBRRevival.Server.Middleware;
 using BBRRevival.Server.Services;
@@ -24,6 +25,10 @@ namespace BBRRevival.Server
 
             builder.Services.AddScoped<IMusicService, MusicService>();
             builder.Services.AddScoped<IPlayerService, PlayerService>();
+            builder.Services.AddScoped<IClientConfigService, ClientConfigService>();
+            builder.Services.AddScoped<IPlanetService, PlanetService>();
+
+            builder.Services.AddTransient<IFilePacker, FilePacker>();
 
             builder.Services.AddControllers();
 
@@ -39,6 +44,19 @@ namespace BBRRevival.Server
             {
                 app.MapOpenApi();
             }
+
+            app.UseStatusCodePages(context =>
+            {
+                var response = context.HttpContext.Response;
+                if (response.StatusCode == 404)
+                {
+                    var logger = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>()
+                                     .CreateLogger("StatusCodePages");
+                    logger.LogWarning("404 Not Found: {Path}", context.HttpContext.Request.Path);
+                }
+
+                return Task.CompletedTask;
+            });
 
             app.UseHttpsRedirection();
 
