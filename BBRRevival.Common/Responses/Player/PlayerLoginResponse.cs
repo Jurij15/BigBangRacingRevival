@@ -136,7 +136,7 @@ namespace BBRRevival.Common.Responses.Player
         public Hashtable upgrades;
         public Hashtable boosters;
         public Hashtable data;
-        public ClientConfig clientConfig;
+        //public ClientConfig clientConfig;
         public bool acceptNotifications;
         public double mcBoosterRefreshTimeLeft;
         public double carBoosterRefreshTimeLeft;

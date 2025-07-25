@@ -18,11 +18,14 @@ namespace BBRRevival.Server.Controllers
         [Route("/v4/player/login")]
         public IActionResult PlayerLogin()
         {
+            _logger.LogInformation("Returning login");
+
             bool hasExisingUserId = false;
 
             if (Request.Headers["lastPathSync"] != 0)
             {
                 //hasExisingUserId = true;
+                _logger.LogWarning("NEW USER CREATION");
             }
 
             if (hasExisingUserId)
